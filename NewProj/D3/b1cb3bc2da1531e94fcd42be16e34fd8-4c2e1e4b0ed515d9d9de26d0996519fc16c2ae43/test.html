@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="liquidFillGauge.js" language="JavaScript"></script>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+</head>
+<body>
+<svg id="fillgauge1" width="97%" height="250" ></svg>
+<script language="JavaScript">
+    var outputData=null;
+
+    var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
+    config1.textVertPosition = 0.2;
+    config1.waveAnimateTime = 1000;
+    var gauge1 = loadLiquidFillGauge("fillgauge1", outputData,config1);//call loadLiquidFillGauge
+
+
+    // function NewValue(){
+    //         return (Math.random()*100).toFixed(1);
+    // }//test
+    var loadedData = null;
+    var inter = setInterval(function() {
+      var url = "https://r1d78evbsg.execute-api.ap-northeast-1.amazonaws.com/View";
+       $.getJSON(url, function (data) {
+          loadedData = data;
+          outputData=parseFloat((loadedData["ID0"][3]*100).toFixed(1));});
+      gauge1.update(outputData);}, 200);
+
+</script>
+</body>
+</html>
