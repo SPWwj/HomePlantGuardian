@@ -263,3 +263,11 @@ function loadLiquidFillGauge(elementId, value, config) {
 
     return new GaugeUpdater();
 }
+
+var loadedData = null;
+var inter = setInterval(function() {
+  var url = "data.json";
+   $.getJSON(url, function (data) {
+      loadedData = data;
+      outputData=parseFloat((loadedData["ID0"][3]*100).toFixed(1));});
+  gauge1.update(outputData);}, 200);
