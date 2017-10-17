@@ -11,20 +11,24 @@
     </style>
 </head>
 <body>
-<svg id="fillgauge1" width="97%" height="250" ></svg>
-<script language="JavaScript">
-    var outputData=null;
 
-    var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
-    config1.textVertPosition = 0.2;
-    config1.waveAnimateTime = 1000;
-    var gauge1 = loadLiquidFillGauge("fillgauge1", outputData,config1);//call loadLiquidFillGauge
+  <!-- <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg> -->
+    <script language="JavaScript">
 
+        reWidth=window.innerWidth;
+        var devicesContainer = d3.select("body").append("svg")
+                                            .classed("svg-container", true) //container class to make it responsive
+                                            .attr("id","ID0")
+                                            .attr("width","100%")
+                                            .attr("height",500)
+                                            .attr("viewBox", "0 0 "+ reWidth+" 500");
 
-    // function NewValue(){
-    //         return (Math.random()*100).toFixed(1);
-    // }//test
+        var outputData=null;
 
-</script>
+        var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
+        config1.textVertPosition = 0.2;
+        config1.waveAnimateTime = 1000;
+        var gauge1 = loadLiquidFillGauge("ID0", outputData,config1);//call loadLiquidFillGauge
+    </script>
 </body>
 </html>

@@ -5,6 +5,10 @@
  *
  * Liquid Fill Gauge v1.1
  */
+
+
+var loadedData = null;
+
 function liquidFillGaugeDefaultSettings(){
     return {
         minValue: 0, // The gauge minimum value.
@@ -34,10 +38,24 @@ function loadLiquidFillGauge(elementId, value, config) {
     if(config == null) config = liquidFillGaugeDefaultSettings();
 
     var gauge = d3.select("#" + elementId);
-    var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
+
+    var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2.5;
     var locationX = parseInt(gauge.style("width"))/2 - radius;
-    var locationY = parseInt(gauge.style("height"))/2 - radius;
+    //var locationY = parseInt(gauge.style("height"))/2 - radius;
+    var locationY = parseInt(0);
     var fillPercent = Math.max(config.minValue, Math.min(config.maxValue, value))/config.maxValue;
+
+    var caption = d3.select("#" + elementId)
+    .append("text")
+    .attr("x", (parseInt(gauge.style("width"))/2+3))
+    .attr("y", (parseInt(gauge.style("height"))/2 + radius+40))
+    .text( "The is a waterBomb of "+ elementId)
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("text-anchor","middle")
+    .attr("fill-opacity","1")
+    .attr("font-weight","900")
+    .attr("fill", "red");
 
     var waveHeightScale;
     if(config.waveHeightScaling){
@@ -264,10 +282,10 @@ function loadLiquidFillGauge(elementId, value, config) {
     return new GaugeUpdater();
 }
 
-var loadedData = null;
 var inter = setInterval(function() {
   var url = "data.json";
    $.getJSON(url, function (data) {
       loadedData = data;
       outputData=parseFloat((loadedData["ID0"][3]*100).toFixed(1));});
-  gauge1.update(outputData);}, 200);
+      gauge1.update(outputData);
+}, 200);
