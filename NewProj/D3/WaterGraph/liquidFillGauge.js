@@ -49,13 +49,26 @@ function loadLiquidFillGauge(elementId, value, config) {
     .append("text")
     .attr("x", (parseInt(gauge.style("width"))/2+3))
     .attr("y", (parseInt(gauge.style("height"))/2 + radius+40))
-    .text( "The is a waterBomb of "+ elementId)
+    .text(elementId+" sensor")
     .attr("font-family", "sans-serif")
     .attr("font-size", "40px")
     .attr("text-anchor","middle")
     .attr("fill-opacity","1")
     .attr("font-weight","900")
     .attr("fill", "red");
+    switch (elementId) {
+      case "WaterLevel": caption.attr("fill","#178BCA");
+                         caption.text("Water Level");
+        break;
+      case "SoilMoisture": caption.attr("fill","#AA7D39");
+                           caption.text("Soil Moisture");
+        break;
+      case "RainSensor": caption.attr("fill","#FF7777");
+                         caption.text("Rain");
+        break;
+      default: caption.attr("fill","black");
+               caption.text(elementId+" sensor")
+    }
 
     var waveHeightScale;
     if(config.waveHeightScaling){
@@ -281,11 +294,3 @@ function loadLiquidFillGauge(elementId, value, config) {
 
     return new GaugeUpdater();
 }
-
-var inter = setInterval(function() {
-  var url = "data.json";
-   $.getJSON(url, function (data) {
-      loadedData = data;
-      outputData=parseFloat((loadedData["ID0"][3]*100).toFixed(1));});
-      gauge1.update(outputData);
-}, 200);
