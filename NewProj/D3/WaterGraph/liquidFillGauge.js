@@ -5,6 +5,35 @@
  *
  * Liquid Fill Gauge v1.1
  */
+ // Function to easily calculate gradient from 2 colors and a percentage
+
+ function makeGradientColor(color1, color2, percent) {
+   var newColor = {};
+   function makeChannel(a, b) {
+     return(a + Math.round((b-a)*(percent/100)));
+   }
+   function makeColorPiece(num) {
+     num = Math.min(num, 255);   // not more than 255
+     num = Math.max(num, 0);     // not less than 0
+     var str = num.toString(16);
+     if (str.length < 2) {
+       str = "0" + str;
+     }
+     return(str);
+   }
+   newColor.r = makeChannel(color1.r, color2.r);
+   newColor.g = makeChannel(color1.g, color2.g);
+   newColor.b = makeChannel(color1.b, color2.b);
+   newColor.cssColor = "#" +
+   makeColorPiece(newColor.r) +
+   makeColorPiece(newColor.g) +
+   makeColorPiece(newColor.b);
+   return(newColor);
+ }
+ // var color1 = {r:255, g:251, b:213};
+ var color1 = {r:255, g:255, b:255};
+ // var color2 = {r:178, g:10, b:44};
+ var color2 = {r:255, g:0, b:0};
 
 
 var loadedData = null;
@@ -289,6 +318,10 @@ function loadLiquidFillGauge(elementId, value, config) {
             waveGroup.transition()
                 .duration(config.waveRiseTime)
                 .attr('transform','translate('+waveGroupXPosition+','+newHeight+')')
+                // window.alert("sometext");
+            gaugeGroup.select('path').transition()
+              .duration(config.waveRiseTime)
+              .style("fill", makeGradientColor(color1, color2, value).cssColor);
         }
     }
 

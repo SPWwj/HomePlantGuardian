@@ -35,12 +35,15 @@
             loadedData = data;
           });
           if (loadedData!=null){
-            gauge1.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
-            gauge2.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
-            gauge3.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
+            // gauge1.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)),config1);
+            // gauge2.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)),config2);
+            // gauge3.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)),config3);
+            gauge1.update(parseFloat(10));
+            gauge2.update(parseFloat(50));
+            gauge3.update(parseFloat(100));
           }
 
-        }, 200);
+        }, 1000);
 
 
         reWidth=window.innerWidth;
@@ -68,7 +71,6 @@
         var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
         config1.textVertPosition = 0.2;
         config1.waveAnimateTime = 1000;
-        config1.circleColor = "black";
         var config2 = liquidFillGaugeDefaultSettings();//create a config for gauge1
         config2.textVertPosition = 0.2;
         config2.waveAnimateTime = 1000;
