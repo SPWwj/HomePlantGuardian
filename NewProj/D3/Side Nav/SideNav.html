@@ -5,6 +5,57 @@
         <!-- <link href="lineGraph.css" rel="stylesheet" type="text/css">
         <script src="http://d3js.org/d3.v3.min.js"></script> -->
         <link href="sideNav.css" rel="stylesheet" type="text/css">
+        <style>
+            .rain{
+              display:inline;
+            }
+        </style>
+        <script type="text/JavaScript">
+              function showHide(){
+                var checkboxRain=document.getElementById("rain");
+                var checkboxSoil=document.getElementById("soil");
+                var checkboxWater=document.getElementById("water");
+                var hiddenRain = document.getElementsByClassName("rain");
+                var hiddenSoil = document.getElementsByClassName("soil");
+                var hiddenWater = document.getElementsByClassName("water");
+
+
+                for(var i=0 ; i !=hiddenRain.length; i++){
+                  if (checkboxRain.checked){
+                    hiddenRain[i].style.display="inline";
+                  }
+                  else{
+                    hiddenRain[i].style.display="none";
+                  }
+                }
+              for(var i=0 ; i !=hiddenSoil.length; i++){
+                if (checkboxSoil.checked){
+                  hiddenSoil[i].style.display="inline";
+                }
+                else{
+                  hiddenSoil[i].style.display="none";
+                }
+              }
+
+            for(var i=0 ; i !=hiddenRain.length; i++){
+              if (checkboxWater.checked){
+                hiddenWater[i].style.display="inline";
+              }
+              else{
+                hiddenWater[i].style.display="none";
+              }
+            }
+          }
+
+              function openNav() {
+                  document.getElementById("mySidenav").style.width = "250px";
+              }
+
+              /* Set the width of the side navigation to 0 */
+              function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+              }
+        </script>
 
     </head>
     <body>
@@ -12,23 +63,20 @@
 
         <script src="lineGraph.js" language="JavaScript"></script> -->
         <div id="mySidenav" class="sidenav">
-          <form action="/action_page.php">
-       <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
-       <input type="checkbox" name="vehicle" value="Car" checked> I have a car<br>
-       <input type="submit" value="Submit">
-     </form> 
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <form action="#">
+            <input type="checkbox" name="rain" id="rain" onclick="showHide()" checked/><label for="rain">Rain sensor</label><br>
+            <input type="checkbox" name="soil" id="soil" checked onclick="showHide()"><label for="soil">Soil Sensor</label><br>
+            <input type="checkbox" name="water" id="water" checked onclick="showHide()"><label for="water">Water Level Sensor<label><br>
+          </form>
+          <label class="rain">rain:</label><input type="text" name="rain" class="rain"/><br>
+          <label class="soil">soil:</label><input type="text" name="soil" class="soil"/><br>
+          <label class="water">water:</label><input type="text" name="water" class="water"/><br>
         </div>
-        <span onclick="openNav()">open</span>
+        <span onclick="openNav()"><button>open</button></span>
 
         <script>
-          function openNav() {
-              document.getElementById("mySidenav").style.width = "250px";
-          }
 
-          /* Set the width of the side navigation to 0 */
-          function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-          }
         </script>
     </body>
 </html>
