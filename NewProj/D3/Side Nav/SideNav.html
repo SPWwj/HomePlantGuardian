@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <link href="lineGraph.css" rel="stylesheet" type="text/css">
+        <script src="http://d3js.org/d3.v3.min.js"></script> -->
+        <link href="sideNav.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+        <!-- <div class="graph"></div>
+
+        <script src="lineGraph.js" language="JavaScript"></script> -->
+        <div id="mySidenav" class="sidenav">
+          <form action="/action_page.php">
+       <input type="checkbox" name="vehicle" value="Bike"> I have a bike<br>
+       <input type="checkbox" name="vehicle" value="Car" checked> I have a car<br>
+       <input type="submit" value="Submit">
+     </form> 
+        </div>
+        <span onclick="openNav()">open</span>
+
+        <script>
+          function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+          }
+
+          /* Set the width of the side navigation to 0 */
+          function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+          }
+        </script>
+    </body>
+</html>

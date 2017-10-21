@@ -1,6 +1,6 @@
 /*!
  * @license Open source under BSD 2-clause (http://choosealicense.com/licenses/bsd-2-clause/)
- * Copyright (c) 2015, Curtis Bratton
+ * Copyright (c) 2017, Weiwenjie
  * All rights reserved.
  *
  * Liquid Fill Gauge v1.1
