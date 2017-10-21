@@ -64,7 +64,7 @@ var axisY = d3.svg.axis()
     .ticks(20)
     .tickPadding(0)
 
-var YGuide =d3.select('svg')
+var YGuide =d3.select('.chart')
     .append('g')
     axisY(YGuide)
     YGuide.attr('transform', 'translate(50,0)')
@@ -91,7 +91,7 @@ now = new Date()
     for (var name in groups) {
         var group = groups[name]
         //group.data.push(group.value) // Real values arrive at irregular intervals
-        group.data.push(0)
+        group.data.push(Math.random()*100)
         group.path.attr('d', line)
     }
 
