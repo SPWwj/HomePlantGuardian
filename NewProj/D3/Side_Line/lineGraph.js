@@ -1,5 +1,5 @@
 var limit = 60 * 1,
-    duration = 3000,
+    duration = 200,
     now = new Date(Date.now() - duration)
 
 var width = window.innerWidth,
@@ -37,7 +37,7 @@ var x = d3.time.scale()
 
 var y = d3.scale.linear()
     .domain([0, 100])
-    .range([height, 0])
+    .range([height, 10])
 
 var line = d3.svg.line()
     .interpolate('basis')
@@ -55,8 +55,24 @@ var svg = d3.select('.graph').append('svg')
 
 var axis = svg.append('g')
     .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + height + ')')
+    .attr('transform', 'translate(50,' + (height)+ ')')
     .call(x.axis = d3.svg.axis().scale(x).orient('bottom'))
+
+var axisY = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(20)
+    .tickPadding(0)
+
+var YGuide =d3.select('svg')
+    .append('g')
+    axisY(YGuide)
+    YGuide.attr('transform', 'translate(50,0)')
+    YGuide.selectAll('path')
+    .style('fill','none')
+    .style('stroke','#000')
+    YGuide.selectAll('line')
+    .style('stroke','#000')
 
 var paths = svg.append('g')
 
@@ -75,7 +91,7 @@ now = new Date()
     for (var name in groups) {
         var group = groups[name]
         //group.data.push(group.value) // Real values arrive at irregular intervals
-        group.data.push( Math.random() * 100)
+        group.data.push(0)
         group.path.attr('d', line)
     }
 
@@ -102,4 +118,4 @@ now = new Date()
         group.data.shift()
     }
 }
-    var inter = setInterval(function() {tick()}, 3000);
+    var inter = setInterval(function() {tick()}, duration);
