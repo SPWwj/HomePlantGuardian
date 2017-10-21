@@ -81,7 +81,7 @@ body {
   h1 {
     padding-left: 1.5em;
     padding-top: 0.5em;
-    color: White;
+    color: Black;
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
     font-size: 300%;
@@ -127,7 +127,8 @@ body {
   </script>
 </head>
 <body>
-  <header>
+  <div>
+  <header id="mapheader">
       <div class="container">
         <h1 class="logo"></h1>
         <nav>
@@ -139,7 +140,7 @@ body {
         </nav>
       </div>
   </header>
-
+</div>
   <div id="popupBoxOnePosition" <a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">
     <div class="popupBoxWrapper"<a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">
       <div class="popupBoxContent" <a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">
@@ -196,36 +197,6 @@ body {
       center: {lat: 1.350065, lng: 103.778273},
       zoom: 15,
       scrollwheel: false,
-      styles: [
-        {
-          "stylers": [
-            {
-              "hue": "#ff1a00"
-            },
-            {
-              "invert_lightness": true
-            },
-            {
-              "saturation": -100
-            },
-            {
-              "lightness": 33
-            },
-            {
-              "gamma": 0.5
-            }
-          ]
-        },
-        {
-          "featureType": "water",
-          "elementType": "geometry",
-          "stylers": [
-            {
-              "color": "#2D333C"
-            }
-          ]
-        }
-      ],
       zoomControl: true,
       mapTypeControl: false,
       scaleControl: true,
@@ -237,7 +208,7 @@ body {
     // Add elements into the view
     var x = document.getElementById("debug");
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(x);
-    $("#debug").html("<h1>MakerSense1 Console</h1>");
+    $("#debug").html("<h1></h1>");
     var y = document.getElementById("loaderContainer");
     map.controls[google.maps.ControlPosition.CENTER].push(y);
     $("#loaderContainer").html("<div class=\"loader\"></div>");
@@ -273,7 +244,7 @@ body {
           .attr("x", padding + 60)
           .attr("y", padding - 15)
           .attr("dy", ".31em")
-          .attr("fill", "White")
+          .attr("fill", "Black")
           .attr("font-weight", 600)
           .text(function(d) { return d.key; });
           // Add Risk Factor label
@@ -282,7 +253,7 @@ body {
           .attr("x", padding + 60)
           .attr("y", padding + 15)
           .attr("dy", ".31em")
-          .attr("fill", "White")
+          .attr("fill", "Black")
           .attr("font-weight", 500)
           .text(function(d) {
             return "Risk Factor: " + Math.round(d.value[3] * 100) + "%";

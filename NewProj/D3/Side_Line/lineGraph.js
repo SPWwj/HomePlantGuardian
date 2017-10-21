@@ -91,7 +91,7 @@ now = new Date()
     for (var name in groups) {
         var group = groups[name]
         //group.data.push(group.value) // Real values arrive at irregular intervals
-        group.data.push(Math.random()*100)
+        group.data.push(loadedData["ID0"][3]*100)
         group.path.attr('d', line)
     }
 
@@ -118,4 +118,3 @@ now = new Date()
         group.data.shift()
     }
 }
-    var inter = setInterval(function() {tick()}, duration);

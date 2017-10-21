@@ -27,6 +27,8 @@
   </header>
 
   <div id="dataGauge" width="100%"><h1>Data Gauge</h1></div>
+
+
   <!-- <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg> -->
   <script language="JavaScript">
 
@@ -42,9 +44,10 @@
             gauge1.update(parseFloat((Math.random()*100).toFixed(1)));
             gauge2.update(parseFloat((Math.random()*100).toFixed(1)));
             gauge3.update(parseFloat((Math.random()*100).toFixed(1)));
+            tick(loadedData);
           }
 
-        }, 3000);
+        }, 200);
 
 
         var reWidth=window.innerWidth;
@@ -92,15 +95,16 @@
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <form action="#">
-        <input type="checkbox" name="rain" id="rain" onclick="showHide()" checked/><label for="rain">Rain sensor</label><br>
-        <input type="checkbox" name="soil" id="soil" checked onclick="showHide()"><label for="soil">Soil Sensor</label><br>
-        <input type="checkbox" name="water" id="water" checked onclick="showHide()"><label for="water">Water Level Sensor<label><br>
+        <div><input type="checkbox" name="rain" id="rain" onclick="showHide()" checked/><label for="rain">Rain sensor</label></div><br>
+        <div><input type="checkbox" name="soil" id="soil" checked onclick="showHide()"><label for="soil">Soil Sensor</label></div><br>
+        <div><input type="checkbox" name="water" id="water" checked onclick="showHide()"><label for="water">Water Level Sensor<label></div><br>
       </form>
     </div>
 
-    <script src="SideNav.js"type="text/JavaScript"></script>
+
     <script src="lineGraph.js" language="JavaScript"></script>
     <link href="lineGraph.css" rel="stylesheet" type="text/css">
+    <script src="SideNav.js"type="text/JavaScript"></script>
     <link href="sideNav.css" rel="stylesheet" type="text/css">
 
 </body>
