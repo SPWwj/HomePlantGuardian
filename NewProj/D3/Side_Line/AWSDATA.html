@@ -26,7 +26,7 @@
       </div>
   </header>
 
-  <div id="dataGauge" width="100%"><h1>Data Gauge<h1></div>
+  <div id="dataGauge" width="100%"><h1>Data Gauge</h1></div>
   <!-- <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg> -->
   <script language="JavaScript">
 
@@ -49,23 +49,23 @@
 
         var reWidth=window.innerWidth;
         var devicesContainer = d3.select("body").append("svg")
-                                            .classed("svg-container", true) //container class to make it responsive
+                                            // .classed("svg-container", true) //container class to make it responsive
                                             .attr("id","WaterLevel")
                                             .attr("width","33%")
-                                            .attr("height",250)
-                                            .attr("viewBox", "0 0 "+ reWidth/3+" 300");
+                                            .attr("height",200)
+                                            // .attr("viewBox", "0 0 "+ reWidth/3+" 300");
         var devicesContainer1 = d3.select("body").append("svg")
-                                            .classed("svg-container", true) //container class to make it responsive
+                                            // .classed("svg-container", true) //container class to make it responsive
                                             .attr("id","SoilMoisture")
                                             .attr("width","33%")
-                                            .attr("height",250)
-                                            .attr("viewBox", "0 0 "+ reWidth/3+" 300");
+                                            .attr("height",200)
+                                            // .attr("viewBox", "0 0 "+ reWidth/3+" 300");
         var devicesContainer2 = d3.select("body").append("svg")
                                             .classed("svg-container", true) //container class to make it responsive
                                             .attr("id","RainSensor")
                                             .attr("width","33%")
-                                            .attr("height",250)
-                                            .attr("viewBox", "0 0 "+ reWidth/3+" 300");
+                                            .attr("height",200)
+                                            // .attr("viewBox", "0 0 "+ reWidth/3+" 300");
 
 
 

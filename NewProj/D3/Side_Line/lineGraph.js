@@ -3,7 +3,7 @@ var limit = 60 * 1,
     now = new Date(Date.now() - duration)
 
 var width = window.innerWidth,
-    height = 500
+    height = 300
 
 var groups = {
     rain: {
@@ -61,7 +61,7 @@ var axis = svg.append('g')
 var axisY = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .ticks(20)
+    .ticks(10)
     .tickPadding(0)
 
 var YGuide =d3.select('.chart')

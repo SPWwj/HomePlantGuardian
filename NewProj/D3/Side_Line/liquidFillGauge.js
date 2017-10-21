@@ -77,13 +77,13 @@ function loadLiquidFillGauge(elementId, value, config) {
     var caption = d3.select("#" + elementId)
     .append("text")
     .attr("x", (parseInt(gauge.style("width"))/2+3))
-    .attr("y", (parseInt(gauge.style("height"))/2 + radius+40))
+    .attr("y", (parseInt(gauge.style("height"))/2 + radius+10))
     .text(elementId+" sensor")
     .attr("font-family", "sans-serif")
-    .attr("font-size", "40px")
+    .attr("font-size", "30px")
     .attr("text-anchor","middle")
     .attr("fill-opacity","1")
-    .attr("font-weight","900")
+    .attr("font-weight","bold")
     .attr("fill", "red");
     switch (elementId) {
       case "WaterLevel": caption.attr("fill","#178BCA");
