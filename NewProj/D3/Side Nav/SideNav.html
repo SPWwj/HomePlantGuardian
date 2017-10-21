@@ -5,57 +5,7 @@
         <!-- <link href="lineGraph.css" rel="stylesheet" type="text/css">
         <script src="http://d3js.org/d3.v3.min.js"></script> -->
         <link href="sideNav.css" rel="stylesheet" type="text/css">
-        <style>
-            .rain{
-              display:inline;
-            }
-        </style>
-        <script type="text/JavaScript">
-              function showHide(){
-                var checkboxRain=document.getElementById("rain");
-                var checkboxSoil=document.getElementById("soil");
-                var checkboxWater=document.getElementById("water");
-                var hiddenRain = document.getElementsByClassName("rain");
-                var hiddenSoil = document.getElementsByClassName("soil");
-                var hiddenWater = document.getElementsByClassName("water");
-
-
-                for(var i=0 ; i !=hiddenRain.length; i++){
-                  if (checkboxRain.checked){
-                    hiddenRain[i].style.display="inline";
-                  }
-                  else{
-                    hiddenRain[i].style.display="none";
-                  }
-                }
-              for(var i=0 ; i !=hiddenSoil.length; i++){
-                if (checkboxSoil.checked){
-                  hiddenSoil[i].style.display="inline";
-                }
-                else{
-                  hiddenSoil[i].style.display="none";
-                }
-              }
-
-            for(var i=0 ; i !=hiddenRain.length; i++){
-              if (checkboxWater.checked){
-                hiddenWater[i].style.display="inline";
-              }
-              else{
-                hiddenWater[i].style.display="none";
-              }
-            }
-          }
-
-              function openNav() {
-                  document.getElementById("mySidenav").style.width = "250px";
-              }
-
-              /* Set the width of the side navigation to 0 */
-              function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-              }
-        </script>
+        <script src="SideNav.js"type="text/JavaScript"></script>
 
     </head>
     <body>
