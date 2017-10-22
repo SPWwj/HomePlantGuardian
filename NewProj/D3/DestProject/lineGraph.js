@@ -1,5 +1,5 @@
 var limit = 60 * 1,
-    duration = 200,
+    duration = 1000,
     now = new Date(Date.now() - duration)
 
 var width = window.innerWidth,
@@ -84,14 +84,17 @@ for (var name in groups) {
         .style('stroke', group.color)
 }
 
-function tick() {
+function tick(loadedData) {
 now = new Date()
 
     // Add new values
+    groups.water.value=parseFloat((loadedData["ID0"][6]*100).toFixed(1))
+    groups.soil.value=parseFloat((loadedData["ID0"][5]*100).toFixed(1))
+    groups.rain.value=parseFloat((loadedData["ID0"][4]*100).toFixed(1))
     for (var name in groups) {
         var group = groups[name]
-        //group.data.push(group.value) // Real values arrive at irregular intervals
-        group.data.push(loadedData["ID0"][3]*100)
+        group.data.push(group.value) // Real values arrive at irregular intervals
+        // group.data.push(loadedData["ID0"][3]*100)
         group.path.attr('d', line)
     }
 

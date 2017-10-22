@@ -247,7 +247,7 @@ body {
           .attr("fill", "Black")
           .attr("font-weight", 600)
           .text(function(d) { return d.key; });
-          // Add Risk Factor label
+          // Add Position Factor label
           marker.append("text")
           .attr("id", "subtitle")
           .attr("x", padding + 60)
@@ -256,20 +256,20 @@ body {
           .attr("fill", "Black")
           .attr("font-weight", 500)
           .text(function(d) {
-            return "Risk Factor: " + Math.round(d.value[3] * 100) + "%";
+            return "Position Factor: " + Math.round(d.value[3] * 100) + "%";
           });
         } else {
           console.log('Data is null, not loading');
         }
         function transform(d) {
-          let riskFactor = d.value[3];
-          let color = makeGradientColor(color1, color2, riskFactor * 100).cssColor;
-          d = new google.maps.LatLng(d.value[0], d.value[1]);
+          let positionFactor = d.value[3];
+          let color = makeGradientColor(color1, color2, positionFactor * 100).cssColor;
+          d = new google.maps.LatLng(d.value[1], d.value[2]);
           d = projection.fromLatLngToDivPixel(d);
           let currentObject = d3.select(this);
-          // Modify color and label based on Risk Factor
+          // Modify color and label based on position Factor
           currentObject.select("circle").attr("fill", color);
-          currentObject.select("text#subtitle").text("Risk Factor: " + Math.round(riskFactor * 100) + "%");
+          currentObject.select("text#subtitle").text("Position Factor: " + Math.round(positionFactor * 100) + "%");
           currentObject.style("left", (d.x - padding) + "px").style("top", (d.y - padding) + "px")
         }
       };
@@ -354,7 +354,7 @@ body {
     overlay.setMap(map);
     // Load the station data. When the data comes back, create an overlay.
     var loadedData = null;
-    var url = "https://r1d78evbsg.execute-api.ap-northeast-1.amazonaws.com/View";
+    var url = "https://vpw4po1w9j.execute-api.ap-southeast-1.amazonaws.com/AWSThingAPI";
     var firstTime = true;
     function loadNext() {
       timeout = setTimeout(loadNext, 500);

@@ -11,6 +11,11 @@
 
 </head>
 <body>
+  <div id="overlay">
+<div class="spinner"></div>
+</div>
+
+
 
   <header>
       <span  id="sideBar" onclick="openNav()" background-image: url('/Users/WeiWenJie/MyOwnSpace/NewProj/D3/Side_Line/bird.jpg');></span>
@@ -31,24 +36,39 @@
 
   <!-- <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg> -->
   <script language="JavaScript">
-
+      var loadedData = null;
+      var overlay = document.getElementById("overlay");
       var inter = setInterval(function() {
-        var url = "data.json";
+        var url = "https://vpw4po1w9j.execute-api.ap-southeast-1.amazonaws.com/AWSThingAPI";
         $.getJSON(url, function (data) {
-            loadedData = data;
+             loadedData = data;
           });
           if (loadedData!=null){
-            // gauge1.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
-            // gauge2.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
-            // gauge3.update(parseFloat((loadedData["ID0"][3]*100).toFixed(1)));
-            gauge1.update(parseFloat((Math.random()*100).toFixed(1)));
-            gauge2.update(parseFloat((Math.random()*100).toFixed(1)));
-            gauge3.update(parseFloat((Math.random()*100).toFixed(1)));
+            gauge1.update(parseFloat((loadedData["ID0"][6]*100).toFixed(1)));
+            gauge2.update(parseFloat((loadedData["ID0"][5]*100).toFixed(1)));
+            gauge3.update(parseFloat((loadedData["ID0"][4]*100).toFixed(1)));
+            // gauge1.update(parseFloat((Math.random()*100).toFixed(1)));
+            // gauge2.update(parseFloat((Math.random()*100).toFixed(1)));
+            // gauge3.update(parseFloat((Math.random()*100).toFixed(1)));
+            // groups.water.value=loadedData["ID0"][4]*100;
+            if ((document.getElementById("stopLineGraph")).checked){
             tick(loadedData);
+            }
+            if(overlay.style.display != 'none'){
+            overlay.style.display = 'none';
           }
+          }
+        },1000);
 
-        }, 200);
 
+        var toggleTLGText=function(){
+          if((document.getElementById("stopLineGraph")).checked){
+          document.getElementById('toggleLineGraph').innerHTML = 'Stop Time Graph';
+          }
+        else {
+          document.getElementById('toggleLineGraph').innerHTML = 'Start Time Graph';
+          }
+        }
 
         var reWidth=window.innerWidth;
         var devicesContainer = d3.select("body").append("svg")
@@ -98,6 +118,7 @@
         <div><input type="checkbox" name="rain" id="rain" onclick="showHide()" checked/><label for="rain">Rain sensor</label></div><br>
         <div><input type="checkbox" name="soil" id="soil" checked onclick="showHide()"><label for="soil">Soil Sensor</label></div><br>
         <div><input type="checkbox" name="water" id="water" checked onclick="showHide()"><label for="water">Water Level Sensor<label></div><br>
+        <div><input type="checkbox" name="stopLineGraph" id="stopLineGraph" checked onclick="toggleTLGText()"><label for="stopLineGraph" id="toggleLineGraph">Stop Time Graph<label></div><br>
       </form>
     </div>
 
