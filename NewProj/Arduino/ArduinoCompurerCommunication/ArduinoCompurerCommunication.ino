@@ -31,7 +31,6 @@
 //SoftwareSerial esp8266(rxPin, txPin);
 
 Servo myservo;  // create servo object to control a servo
-int pos = 95;    // variable to store the servo position
 
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -39,6 +38,7 @@ String commandString = "";
 
 //Declare pin for moter
 int pumpPin = 8;
+int servoPin=9;
 
 //init state
 boolean isConnected = false;
@@ -52,7 +52,7 @@ const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 // Rain and soil moisture values
-int rainValue, soilMoistureValue;
+int rainValue=0, soilMoistureValue=0;
 const int soilThreshold=1300;
 const int rainThreshold= 800;
 
@@ -62,63 +62,6 @@ const int rainThreshold= 800;
 void readSensors() {
   rainValue = analogRead(A0);
   soilMoistureValue = analogRead(A1);
-}
-
-/**************** Main Program ****************/
-
-void setup() {
-  // Setup ESP8266 serial port
-  Serial.begin(9600);
-//  esp8266.begin(9600);
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-  //pinMode(pumpPin,OUTPUT);
-  initDisplay();
-  myservo.write(pos);  
-  // Setup onboard LED for status indication
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
-}
-
-void loop() {
-
-//    // Wait for '.' character
-//  while (esp8266.available()) {
-//    // Read sensors
-//    readSensors();
-//    if (esp8266.read() == '.') {
-//      // Construct data and send payload
-//      esp8266.print(soilMoistureValue);
-//      esp8266.print(',');
-//      esp8266.print(rainValue);
-//
-//      // For debug only
-////      Serial.print(soilMoistureValue);
-////      Serial.print(',');
-////      Serial.print(rainValue);
-//
-//      // Blink LED to indicate that ESP8266 has requested data
-//      digitalWrite(LED_BUILTIN, HIGH);
-//      delay(0.5);
-//      digitalWrite(LED_BUILTIN, LOW);
-//    }
-//    formControl();
-//  }
-//    if(!esp8266.available()){ readSensors();}
-    readSensors();
-    formControl();
-    checkThreshold();
-    operation();
-    Serial.print(soilMoistureValue);
-    Serial.print("  State:  ");
-    Serial.print(soilDryState);
-    Serial.print("  State2: ");
-    Serial.print(pumpState);
-    Serial.print("   ");
-    Serial.print(rainValue);
-    Serial.print("  State:  ");
-    Serial.print(rectState);
-    Serial.print("  State2:  ");
-    Serial.println(rainState);
 }
 
 void operation(){
@@ -256,6 +199,64 @@ void printText(String text)
       lcd.print(text.substring(16,32));
     }
 }
+
+
+/**************** Main Program ****************/
+
+void setup() {
+  // Setup ESP8266 serial port
+  Serial.begin(9600);
+//  esp8266.begin(9600);
+  myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
+  //pinMode(pumpPin,OUTPUT);
+    myservo.write(95);  
+  initDisplay();
+  // Setup onboard LED for status indication
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+
+//    // Wait for '.' character
+//  while (esp8266.available()) {
+//    // Read sensors
+//    readSensors();
+//    if (esp8266.read() == '.') {
+//      // Construct data and send payload
+//      esp8266.print(soilMoistureValue);
+//      esp8266.print(',');
+//      esp8266.print(rainValue);
+//
+//      // For debug only
+////      Serial.print(soilMoistureValue);
+////      Serial.print(',');
+////      Serial.print(rainValue);
+//
+//      // Blink LED to indicate that ESP8266 has requested data
+//      digitalWrite(LED_BUILTIN, HIGH);
+//      delay(0.5);
+//      digitalWrite(LED_BUILTIN, LOW);
+//    }
+//    formControl();
+//  }
+//    if(!esp8266.available()){ readSensors();}
+    readSensors();
+    formControl();
+    checkThreshold();
+    operation();
+    Serial.print(soilMoistureValue);
+    Serial.print("  State:  ");
+    Serial.print(soilDryState);
+    Serial.print("  State2: ");
+    Serial.print(pumpState);
+    Serial.print("   ");
+    Serial.print(rainValue);
+    Serial.print("  State:  ");
+    Serial.print(rectState);
+    Serial.print("  State2:  ");
+    Serial.println(rainState);
+}
+
 
 void serialEvent() {
   while (Serial.available()) {
