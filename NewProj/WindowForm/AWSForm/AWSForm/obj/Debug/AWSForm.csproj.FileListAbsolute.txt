@@ -1,0 +1,18 @@
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\bin\Debug\AWSForm.exe.config
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\bin\Debug\AWSForm.exe
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\bin\Debug\AWSForm.pdb
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.csprojResolveAssemblyReference.cache
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.Form1.resources
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.Properties.Resources.resources
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.csproj.GenerateResource.Cache
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.exe
+c:\users\wwjwe\onedrive\文档\visual studio 2017\Projects\AWSForm\AWSForm\obj\Debug\AWSForm.pdb
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\bin\Debug\AWSForm.exe.config
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\bin\Debug\AWSForm.exe
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\bin\Debug\AWSForm.pdb
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.csprojResolveAssemblyReference.cache
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.Form1.resources
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.Properties.Resources.resources
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.csproj.GenerateResource.Cache
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.exe
+C:\Users\wwjwe\OneDrive\文档\GitHub\MyOwnSpace\NewProj\WindowForm\AWSForm\AWSForm\obj\Debug\AWSForm.pdb
