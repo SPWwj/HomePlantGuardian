@@ -1,3 +1,4 @@
+/**************** Pin mapping ****************/
 /*
  * Rainfall detector
  * VCC_IN  ->   5V
@@ -22,7 +23,12 @@
  */
 
 #include <LiquidCrystal.h>
+//#include <SoftwareSerial.h>
 #include <Servo.h>
+//
+//#define rxPin 0
+//#define txPin 1
+//SoftwareSerial esp8266(rxPin, txPin);
 
 Servo myservo;  // create servo object to control a servo
 int pos = 95;    // variable to store the servo position
@@ -32,47 +38,132 @@ boolean stringComplete = false;  // whether the string is complete
 String commandString = "";
 
 //Declare pin for moter
-int pumpPin = 9;
+int pumpPin = 8;
 
 //init state
 boolean isConnected = false;
 boolean rectState = false;
+boolean rainState = false;
 boolean pumpState = false;
+boolean soilDryState = false;
 
 //Declare Pin for LCD
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
+// Rain and soil moisture values
+int rainValue, soilMoistureValue;
+const int soilThreshold=1300;
+const int rainThreshold= 800;
+
+
+/**************** Helper functions ****************/
+
+void readSensors() {
+  rainValue = analogRead(A0);
+  soilMoistureValue = analogRead(A1);
+}
+
+/**************** Main Program ****************/
 
 void setup() {
+  // Setup ESP8266 serial port
   Serial.begin(9600);
-  myservo.attach(8);  // attaches the servo on pin 9 to the servo object
-  pinMode(pumpPin,OUTPUT);
+//  esp8266.begin(9600);
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+  //pinMode(pumpPin,OUTPUT);
   initDisplay();
-  myservo.write(pos);
+  myservo.write(pos);  
+  // Setup onboard LED for status indication
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop() {
 
-      if(pumpState == true)
+//    // Wait for '.' character
+//  while (esp8266.available()) {
+//    // Read sensors
+//    readSensors();
+//    if (esp8266.read() == '.') {
+//      // Construct data and send payload
+//      esp8266.print(soilMoistureValue);
+//      esp8266.print(',');
+//      esp8266.print(rainValue);
+//
+//      // For debug only
+////      Serial.print(soilMoistureValue);
+////      Serial.print(',');
+////      Serial.print(rainValue);
+//
+//      // Blink LED to indicate that ESP8266 has requested data
+//      digitalWrite(LED_BUILTIN, HIGH);
+//      delay(0.5);
+//      digitalWrite(LED_BUILTIN, LOW);
+//    }
+//    formControl();
+//  }
+//    if(!esp8266.available()){ readSensors();}
+    readSensors();
+    formControl();
+    checkThreshold();
+    operation();
+    Serial.print(soilMoistureValue);
+    Serial.print("  State:  ");
+    Serial.print(soilDryState);
+    Serial.print("  State2: ");
+    Serial.print(pumpState);
+    Serial.print("   ");
+    Serial.print(rainValue);
+    Serial.print("  State:  ");
+    Serial.print(rectState);
+    Serial.print("  State2:  ");
+    Serial.println(rainState);
+}
+
+void operation(){
+
+  if (rainState ==true || rectState==true)
     {
-      if (pos>5)
-      {
-        pos-=1;
-        myservo.write(pos);
-        delay(25);   
-       }
+        myservo.write(5);
+    }
+  else
+    { 
+   
+        myservo.write(95);
+        //delay(25);   
+     
+    }  
+  if (pumpState ==true || soilDryState==true)
+    {
+      turnPumpOn(pumpPin);
     }
     else
-    { 
-      if (pos<95)
-      {
-        pos+=1;
-        myservo.write(pos);
-        delay(25);   
-       }
-    }   
+    {
+      turnPumpOff(pumpPin);
+    }  
+}
 
+void checkThreshold(){
+      if (soilMoistureValue >soilThreshold)
+    {
+      soilDryState=true;
+    }
+    else
+    {
+      soilDryState=false;
+    }
+    if (rainValue<rainThreshold)
+    {
+      rainState=true;
+    }
+    else
+    {
+      rainState=false;
+    }
+}
+
+void formControl(){
 if(stringComplete)
 {
   stringComplete = false;
@@ -81,7 +172,7 @@ if(stringComplete)
   if(commandString.equals("STAR"))
   {
     lcd.clear();
-    lcd.print("Waiting for instruction");    
+    //printText("Waiting for     Instruction");
   }
   if(commandString.equals("STOP"))
   {
@@ -98,22 +189,13 @@ if(stringComplete)
   {
     rectState = getState();
   }
-    else if(commandString.equals("PUMP"))
-  {
-    pumpState = getState();
-    if(pumpState == true)
-    {
-      turnPumpOn(pumpPin);
-    }
-    else
-    {
-      turnPumpOff(pumpPin);
-    }   
-  }
-  
-  inputString = "";
+//  else if(commandString.equals("PUMP"))
+//  {
+//    pumpState = getState();
+//  } 
 }
-
+inputString = "";
+commandString = "";
 }
 
 void initDisplay()

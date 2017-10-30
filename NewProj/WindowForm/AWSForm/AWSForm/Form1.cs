@@ -27,33 +27,20 @@ namespace AWSForm
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!isConnected)
-            {
-                connectToArduino();
-            }
-            else
-            {
-                disconnectFromArduino();
-            }
-        }
+
 
         void getAvailableComPorts()
         {
-            //while (ports == null || ports.Length == 0)
-            //{
-                ports = SerialPort.GetPortNames();
-            //}
+            ports = SerialPort.GetPortNames();
         }
 
         void listAvailableComPorts()
         {
+            comboSerial.Items.Clear();
             foreach (string port in ports)
             {
-                comboSerial.Items.Clear();
                 comboSerial.Items.Add(port);
-                Console.WriteLine(port);
+                //Console.WriteLine(port);
             }
             if (ports != null && ports.Length != 0)
             {
@@ -65,7 +52,7 @@ namespace AWSForm
                 btnSerialCon.Enabled = false;
             }
 
-         }
+        }
 
         private void connectToArduino()
         {
@@ -95,10 +82,8 @@ namespace AWSForm
 
         private void enableControls()
         {
-
-            btnLCDWrite.Enabled = true;
-            textLCD.Enabled = true;
             groupCover.Enabled = true;
+            groupPump.Enabled = true;
             groupLCD.Enabled = true;
 
         }
@@ -126,11 +111,13 @@ namespace AWSForm
             {
                 if (btnToggleCover.Text == "Open")
                 {
-                    port.Write("#LED1ON\n");
+                    port.Write("#RECTON\n");
+                    btnToggleCover.Text = "Close";
                 }
                 else
                 {
-                    port.Write("#LED1OF\n");
+                    port.Write("#RECTOF\n");
+                    btnToggleCover.Text = "Open";
                 }
             }
         }
@@ -139,20 +126,46 @@ namespace AWSForm
         {
             if (isConnected)
             {
-                port.Write("#TEXT" + textLCD.Text + "#\n");
+                 port.Write("#TEXT" + textLCD.Text + "#\n");
             }
         }
 
         private void btnPumpOn_Click(object sender, EventArgs e)
         {
-            port.Write("#LED1ON\n");
+            port.Write("#PUMPON\n");
         }
 
         private void btnPumpOff_Click(object sender, EventArgs e)
         {
-            port.Write("#LED1OF\n");
+            port.Write("#PUMPOF\n");
         }
 
+        private void btnSerialCon_Click(object sender, EventArgs e)
+        {
+            if (!isConnected)
+            {
+                connectToArduino();
+            }
+            else
+            {
+                disconnectFromArduino();
+            }
+        }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                if (checkBox1.Checked)
+                {
+                    port.Write("#RECTON\n");
+      
+                }
+                else
+                {
+                    port.Write("#RECTOF\n");
+                }
+            }
+        }
     }
 }

@@ -39,6 +39,7 @@
             this.groupPump = new System.Windows.Forms.GroupBox();
             this.btnPumpOff = new System.Windows.Forms.Button();
             this.btnPumpOn = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupLCD.SuspendLayout();
             this.groupSerial.SuspendLayout();
             this.groupCover.SuspendLayout();
@@ -110,10 +111,11 @@
             this.btnSerialCon.TabIndex = 0;
             this.btnSerialCon.Text = "Connect";
             this.btnSerialCon.UseVisualStyleBackColor = true;
-            this.btnSerialCon.Click += new System.EventHandler(this.button1_Click);
+            this.btnSerialCon.Click += new System.EventHandler(this.btnSerialCon_Click);
             // 
             // groupCover
             // 
+            this.groupCover.Controls.Add(this.checkBox1);
             this.groupCover.Controls.Add(this.btnToggleCover);
             this.groupCover.Location = new System.Drawing.Point(282, 55);
             this.groupCover.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -167,6 +169,17 @@
             this.btnPumpOn.UseVisualStyleBackColor = true;
             this.btnPumpOn.Click += new System.EventHandler(this.btnPumpOn_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 91);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -184,6 +197,7 @@
             this.groupLCD.PerformLayout();
             this.groupSerial.ResumeLayout(false);
             this.groupCover.ResumeLayout(false);
+            this.groupCover.PerformLayout();
             this.groupPump.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -202,6 +216,7 @@
         private System.Windows.Forms.GroupBox groupPump;
         private System.Windows.Forms.Button btnPumpOn;
         private System.Windows.Forms.Button btnPumpOff;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
