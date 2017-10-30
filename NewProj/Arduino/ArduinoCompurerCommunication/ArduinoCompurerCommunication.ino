@@ -1,19 +1,45 @@
+/*
+ * Rainfall detector
+ * VCC_IN  ->   5V
+ * GND     ->   GND
+ * A0      ->   A0
+ * D0      ->   NC
+ *
+ * Soil Moisture Sensor
+ * VCC_IN  ->   5V
+ * GND     ->   GND
+ * A0      ->   A1
+ * D0      ->   NC (no connect)
+ * 
+ * 
+ * Output Pin
+ * ServoCover   ->  8
+ * Motor        ->  9
+ * 
+ * LCD
+ * rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+ * 
+ */
+
 #include <LiquidCrystal.h>
 #include <Servo.h>
 
 Servo myservo;  // create servo object to control a servo
-int pos = 90;    // variable to store the servo position
+int pos = 95;    // variable to store the servo position
 
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 String commandString = "";
 
-int led2Pin = 9;
+//Declare pin for moter
+int pumpPin = 9;
 
-
+//init state
 boolean isConnected = false;
-boolean LedState = false;
+boolean rectState = false;
+boolean pumpState = false;
 
+//Declare Pin for LCD
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -21,14 +47,14 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 void setup() {
   Serial.begin(9600);
   myservo.attach(8);  // attaches the servo on pin 9 to the servo object
-  pinMode(led2Pin,OUTPUT);
+  pinMode(pumpPin,OUTPUT);
   initDisplay();
-  myservo.write(pos+5);
+  myservo.write(pos);
 }
 
 void loop() {
 
-      if(LedState == true)
+      if(pumpState == true)
     {
       if (pos>5)
       {
@@ -39,7 +65,7 @@ void loop() {
     }
     else
     { 
-      if (pos<85)
+      if (pos<95)
       {
         pos+=1;
         myservo.write(pos);
@@ -55,10 +81,11 @@ if(stringComplete)
   if(commandString.equals("STAR"))
   {
     lcd.clear();
+    lcd.print("Waiting for instruction");    
   }
   if(commandString.equals("STOP"))
   {
-    turnLedOff(led2Pin);
+    turnPumpOff(pumpPin);
     lcd.clear();
     lcd.print("Ready to connect");    
   }
@@ -67,20 +94,20 @@ if(stringComplete)
     String text = getTextToPrint();
     printText(text);
   }
-  else if(commandString.equals("LED1"))
+  else if(commandString.equals("RECT"))
   {
-    LedState = getLedState();
+    rectState = getState();
   }
-    else if(commandString.equals("LED2"))
+    else if(commandString.equals("PUMP"))
   {
-    LedState = getLedState();
-    if(LedState == true)
+    pumpState = getState();
+    if(pumpState == true)
     {
-      turnLedOn(led2Pin);
+      turnPumpOn(pumpPin);
     }
     else
     {
-      turnLedOff(led2Pin);
+      turnPumpOff(pumpPin);
     }   
   }
   
@@ -95,7 +122,7 @@ void initDisplay()
   lcd.print("Ready to connect");
 }
 
-boolean getLedState()
+boolean getState()
 {
   boolean state = false;
   if(inputString.substring(5,7).equals("ON"))
@@ -116,12 +143,12 @@ void getCommand()
   }
 }
 
-void turnLedOn(int pin)
+void turnPumpOn(int pin)
 {
   digitalWrite(pin,HIGH);
 }
 
-void turnLedOff(int pin)
+void turnPumpOff(int pin)
 {
   digitalWrite(pin,LOW);
 }
