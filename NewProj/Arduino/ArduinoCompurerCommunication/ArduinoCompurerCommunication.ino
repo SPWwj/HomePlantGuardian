@@ -53,9 +53,63 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 // Rain and soil moisture values
 int rainValue=0, soilMoistureValue=0;
-const int soilThreshold=1300;
-const int rainThreshold= 800;
+const int SOILTHRESHOLD=1300;
+const int RAINTHRESHOLD= 800;
 
+/**************** Main Program ****************/
+
+void setup() {
+  // Setup ESP8266 serial port
+  Serial.begin(9600);
+  esp8266.begin(9600);
+  myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
+  pinMode(pumpPin,OUTPUT);
+  myservo.write(95);  
+  initDisplay();
+  // Setup onboard LED for status indication
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+    readSensors();
+    checkThreshold();
+    formControl();
+    operation();
+    send2esp8266();
+}
+
+/**************************************serialEvent***************************************************/
+
+void send2esp8266(){
+    if (esp8266.available()) {
+        // Wait for '.' character
+    if (esp8266.read() == '.') {
+      // Construct data and send payload
+      esp8266.print(soilMoistureValue);
+      esp8266.print(',');
+      esp8266.print(rainValue);
+
+      // Blink LED to indicate that ESP8266 has requested data
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(0.5);
+      digitalWrite(LED_BUILTIN, LOW);
+    }
+  }
+}
+
+void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    }
+  }
+}
 
 /**************** Helper functions ****************/
 
@@ -64,33 +118,18 @@ void readSensors() {
   soilMoistureValue = analogRead(A1);
 }
 
-void operation(){
+void turnPumpOn(int pin)
+{
+  digitalWrite(pin,HIGH);
+}
 
-  //if (rainState ==true || rectState==true)
-  
-  if ( rectState==true)
-    {
-        myservo.write(5);
-    }
-  else
-    { 
-   
-        myservo.write(95);
-        //delay(25);   
-     
-    }  
-  if (pumpState ==true || soilDryState==true)
-    {
-      turnPumpOn(pumpPin);
-    }
-    else
-    {
-      turnPumpOff(pumpPin);
-    }  
+void turnPumpOff(int pin)
+{
+  digitalWrite(pin,LOW);
 }
 
 void checkThreshold(){
-      if (soilMoistureValue >soilThreshold)
+      if (soilMoistureValue >SOILTHRESHOLD)
     {
       soilDryState=true;
     }
@@ -98,13 +137,61 @@ void checkThreshold(){
     {
       soilDryState=false;
     }
-    if (rainValue<rainThreshold)
+    if (rainValue<RAINTHRESHOLD)
     {
       rainState=true;
     }
     else
     {
       rainState=false;
+    }
+}
+
+void initDisplay()
+{
+  lcd.begin(16, 2);
+  lcd.print("Ready to connect");
+}
+
+void getCommand()
+{
+  if(inputString.length()>0)
+  {
+     commandString = inputString.substring(1,5);
+  }
+}
+
+boolean getState()
+{
+  boolean state = false;
+  if(inputString.substring(5,7).equals("ON"))
+  {
+    state = true;
+  }else
+  {
+    state = false;
+  }
+  return state;
+}
+
+String getTextToPrint()
+{
+  String value = inputString.substring(5,inputString.length()-2);
+  return value;
+}
+
+void printText(String text)
+{
+  lcd.clear();
+  lcd.setCursor(0,0);
+    if(text.length()<16)
+    {
+      lcd.print(text);
+    }else
+    {
+      lcd.print(text.substring(0,16));
+      lcd.setCursor(0,1);
+      lcd.print(text.substring(16,32));
     }
 }
 
@@ -140,128 +227,28 @@ if(stringComplete)
   } 
 }
 inputString = "";
-commandString = "";
 }
 
-void initDisplay()
-{
-  lcd.begin(16, 2);
-  lcd.print("Ready to connect");
-}
+void operation(){
 
-boolean getState()
-{
-  boolean state = false;
-  if(inputString.substring(5,7).equals("ON"))
-  {
-    state = true;
-  }else
-  {
-    state = false;
-  }
-  return state;
-}
-
-void getCommand()
-{
-  if(inputString.length()>0)
-  {
-     commandString = inputString.substring(1,5);
-  }
-}
-
-void turnPumpOn(int pin)
-{
-  digitalWrite(pin,HIGH);
-}
-
-void turnPumpOff(int pin)
-{
-  digitalWrite(pin,LOW);
-}
-
-
-String getTextToPrint()
-{
-  String value = inputString.substring(5,inputString.length()-2);
-  return value;
-}
-
-void printText(String text)
-{
-  lcd.clear();
-  lcd.setCursor(0,0);
-    if(text.length()<16)
+  //if (rainState ==true || rectState==true)
+  
+  if ( rectState==true)
     {
-      lcd.print(text);
-    }else
+        myservo.write(5);
+    }
+  else
+    { 
+        myservo.write(95);
+    }  
+  if (pumpState ==true || soilDryState==true)
     {
-      lcd.print(text.substring(0,16));
-      lcd.setCursor(0,1);
-      lcd.print(text.substring(16,32));
+      turnPumpOn(pumpPin);
     }
-}
-
-
-/**************** Main Program ****************/
-
-void setup() {
-  // Setup ESP8266 serial port
-  Serial.begin(9600);
-  esp8266.begin(9600);
-  myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
-  pinMode(pumpPin,OUTPUT);
-  myservo.write(95);  
-  initDisplay();
-  // Setup onboard LED for status indication
-  pinMode(LED_BUILTIN, OUTPUT);
-}
-
-void loop() {
-
-    // Wait for '.' character
-  while (esp8266.available()) {
-    // Read sensors
-    readSensors();
-    formControl();
-    formControl();
-    operation();
-    if (esp8266.read() == '.') {
-      // Construct data and send payload
-      esp8266.print(soilMoistureValue);
-      esp8266.print(',');
-      esp8266.print(rainValue);
-
-      // Blink LED to indicate that ESP8266 has requested data
-      digitalWrite(LED_BUILTIN, HIGH);
-      delay(0.5);
-      digitalWrite(LED_BUILTIN, LOW);
-    }
-  }
-    if(!esp8266.available())
+    else
     {
-        readSensors();
-        checkThreshold();
-        formControl();
-        operation();
-    }
+      turnPumpOff(pumpPin);
+    }  
 }
-
-void serialEvent() {
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag
-    // so the main loop can do something about it:
-    if (inChar == '\n') {
-      stringComplete = true;
-    }
-  }
-}
-
-
-
 
 

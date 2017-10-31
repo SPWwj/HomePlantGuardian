@@ -144,13 +144,13 @@ namespace AWSForm
                 if (checkBox1.Checked)
                 {
                   
-                        port.Write("#LED1ON\n");
+                        port.Write("#RECTON\n");
                         Console.WriteLine("send rect on");
   
                 }
                 else
                 {
-                        port.Write("#LED1OF\n");
+                        port.Write("#RECTOF\n");
                         Console.WriteLine("send rect of");
    
                 }
