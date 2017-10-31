@@ -183,5 +183,11 @@ namespace AWSForm
                 }
             }
         }
+
+        private void btnPortRefresh_Click(object sender, EventArgs e)
+        {
+            getAvailableComPorts();
+            listAvailableComPorts();
+        }
     }
 }

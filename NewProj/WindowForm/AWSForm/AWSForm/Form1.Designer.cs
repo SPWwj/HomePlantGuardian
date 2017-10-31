@@ -38,6 +38,7 @@
             this.btnCoverToggle = new System.Windows.Forms.Button();
             this.groupPump = new System.Windows.Forms.GroupBox();
             this.btnTogglePump = new System.Windows.Forms.Button();
+            this.btnPortRefresh = new System.Windows.Forms.Button();
             this.groupLCD.SuspendLayout();
             this.groupSerial.SuspendLayout();
             this.groupCover.SuspendLayout();
@@ -85,6 +86,7 @@
             // groupSerial
             // 
             this.groupSerial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupSerial.Controls.Add(this.btnPortRefresh);
             this.groupSerial.Controls.Add(this.comboSerial);
             this.groupSerial.Controls.Add(this.btnSerialCon);
             this.groupSerial.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -171,6 +173,16 @@
             this.btnTogglePump.UseVisualStyleBackColor = false;
             this.btnTogglePump.Click += new System.EventHandler(this.btnTogglePump_Click);
             // 
+            // btnPortRefresh
+            // 
+            this.btnPortRefresh.Location = new System.Drawing.Point(279, 39);
+            this.btnPortRefresh.Name = "btnPortRefresh";
+            this.btnPortRefresh.Size = new System.Drawing.Size(136, 42);
+            this.btnPortRefresh.TabIndex = 2;
+            this.btnPortRefresh.Text = "Refresh Ports";
+            this.btnPortRefresh.UseVisualStyleBackColor = true;
+            this.btnPortRefresh.Click += new System.EventHandler(this.btnPortRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -205,6 +217,7 @@
         private System.Windows.Forms.GroupBox groupPump;
         private System.Windows.Forms.Button btnTogglePump;
         private System.Windows.Forms.Button btnCoverToggle;
+        private System.Windows.Forms.Button btnPortRefresh;
     }
 }
 
