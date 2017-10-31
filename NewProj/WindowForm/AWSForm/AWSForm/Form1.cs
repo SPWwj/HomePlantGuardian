@@ -57,26 +57,40 @@ namespace AWSForm
 
         private void connectToArduino()
         {
-            isConnected = true;
-            string selectedPort = comboSerial.GetItemText(comboSerial.SelectedItem);
-            port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
-            port.Open();
-            port.Write("#STAR\n");
-            btnSerialCon.Text = "Disconnect";
-            enableControls();
+            try
+            {
+                isConnected = true;
+                string selectedPort = comboSerial.GetItemText(comboSerial.SelectedItem);
+                port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
+                port.Open();
+                port.Write("#STAR\n");
+                btnSerialCon.Text = "Disconnect";
+                enableControls();
+            }
+            catch
+            {
+                Console.WriteLine("Error");
+                MessageBox.Show("Error connecting to the ports");
+            }
         }
 
         private void disconnectFromArduino()
         {
             isConnected = false;
-            port.Write("#STOP\n");
-            port.Close();
-            btnSerialCon.Text = "Connect";
-            disableControls();
-            resetDefaults();
-            btnSerialCon.Enabled = true;
-            getAvailableComPorts();
-            listAvailableComPorts();
+            try
+            {
+                port.Write("#STOP\n");
+                port.Close();
+            }
+            catch
+            {
+                Console.WriteLine("Error");
+                MessageBox.Show("Improper disconnected from port");
+            }
+                btnSerialCon.Text = "Connect";
+                disableControls();
+                resetDefaults();
+                btnSerialCon.Enabled = true;
         }
 
 
@@ -103,6 +117,12 @@ namespace AWSForm
         {
 
             textLCD.Text = "";
+            getAvailableComPorts();
+            listAvailableComPorts();
+            btnTogglePump.Text = "On";
+            btnTogglePump.BackColor = Color.White;
+            btnCoverToggle.Text = "To Open";
+            btnCoverToggle.BackColor = Color.White;
 
         }
 
@@ -115,7 +135,7 @@ namespace AWSForm
             }
         }
 
-        private void btnPumpOn_Click(object sender, EventArgs e)
+        private void btnTogglePump_Click(object sender, EventArgs e)
         {
             if (btnTogglePump.Text == "On")
             {
@@ -144,10 +164,6 @@ namespace AWSForm
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnCoverToggle_Click(object sender, EventArgs e)
         {

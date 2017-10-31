@@ -169,7 +169,7 @@
             this.btnTogglePump.TabIndex = 0;
             this.btnTogglePump.Text = "On";
             this.btnTogglePump.UseVisualStyleBackColor = false;
-            this.btnTogglePump.Click += new System.EventHandler(this.btnPumpOn_Click);
+            this.btnTogglePump.Click += new System.EventHandler(this.btnTogglePump_Click);
             // 
             // Form1
             // 
