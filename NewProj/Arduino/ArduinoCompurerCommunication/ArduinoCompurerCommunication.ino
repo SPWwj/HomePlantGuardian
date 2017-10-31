@@ -23,12 +23,12 @@
  */
 
 #include <LiquidCrystal.h>
-//#include <SoftwareSerial.h>
+#include <SoftwareSerial.h>
 #include <Servo.h>
 //
-//#define rxPin 0
-//#define txPin 1
-//SoftwareSerial esp8266(rxPin, txPin);
+#define rxPin 0
+#define txPin 1
+SoftwareSerial esp8266(rxPin, txPin);
 
 Servo myservo;  // create servo object to control a servo
 
@@ -117,7 +117,7 @@ if(stringComplete)
   if(commandString.equals("STAR"))
   {
     lcd.clear();
-    //printText("Waiting for     Instruction");
+    printText("Waiting for     Instruction");
   }
   if(commandString.equals("STOP"))
   {
@@ -134,10 +134,10 @@ if(stringComplete)
   {
     rectState = getState();
   }
-//  else if(commandString.equals("PUMP"))
-//  {
-//    pumpState = getState();
-//  } 
+  else if(commandString.equals("PUMP"))
+  {
+    pumpState = getState();
+  } 
 }
 inputString = "";
 commandString = "";
@@ -208,10 +208,10 @@ void printText(String text)
 void setup() {
   // Setup ESP8266 serial port
   Serial.begin(9600);
-//  esp8266.begin(9600);
+  esp8266.begin(9600);
   myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
-  //pinMode(pumpPin,OUTPUT);
-    myservo.write(95);  
+  pinMode(pumpPin,OUTPUT);
+  myservo.write(95);  
   initDisplay();
   // Setup onboard LED for status indication
   pinMode(LED_BUILTIN, OUTPUT);
@@ -219,35 +219,33 @@ void setup() {
 
 void loop() {
 
-//    // Wait for '.' character
-//  while (esp8266.available()) {
-//    // Read sensors
-//    readSensors();
-//    if (esp8266.read() == '.') {
-//      // Construct data and send payload
-//      esp8266.print(soilMoistureValue);
-//      esp8266.print(',');
-//      esp8266.print(rainValue);
-//
-//      // For debug only
-////      Serial.print(soilMoistureValue);
-////      Serial.print(',');
-////      Serial.print(rainValue);
-//
-//      // Blink LED to indicate that ESP8266 has requested data
-//      digitalWrite(LED_BUILTIN, HIGH);
-//      delay(0.5);
-//      digitalWrite(LED_BUILTIN, LOW);
-//    }
-//    formControl();
-//  }
-//    if(!esp8266.available()){ readSensors();}
+    // Wait for '.' character
+  while (esp8266.available()) {
+    // Read sensors
     readSensors();
-    checkThreshold();
+    formControl();
     formControl();
     operation();
-}
+    if (esp8266.read() == '.') {
+      // Construct data and send payload
+      esp8266.print(soilMoistureValue);
+      esp8266.print(',');
+      esp8266.print(rainValue);
 
+      // Blink LED to indicate that ESP8266 has requested data
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(0.5);
+      digitalWrite(LED_BUILTIN, LOW);
+    }
+  }
+    if(!esp8266.available())
+    {
+        readSensors();
+        checkThreshold();
+        formControl();
+        operation();
+    }
+}
 
 void serialEvent() {
   while (Serial.available()) {
@@ -262,4 +260,8 @@ void serialEvent() {
     }
   }
 }
+
+
+
+
 
