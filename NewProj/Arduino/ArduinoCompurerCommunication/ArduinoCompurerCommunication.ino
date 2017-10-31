@@ -66,7 +66,9 @@ void readSensors() {
 
 void operation(){
 
-  if (rainState ==true || rectState==true)
+  //if (rainState ==true || rectState==true)
+  
+  if ( rectState==true)
     {
         myservo.write(5);
     }
@@ -241,20 +243,9 @@ void loop() {
 //  }
 //    if(!esp8266.available()){ readSensors();}
     readSensors();
-    formControl();
     checkThreshold();
+    formControl();
     operation();
-    Serial.print(soilMoistureValue);
-    Serial.print("  State:  ");
-    Serial.print(soilDryState);
-    Serial.print("  State2: ");
-    Serial.print(pumpState);
-    Serial.print("   ");
-    Serial.print(rainValue);
-    Serial.print("  State:  ");
-    Serial.print(rectState);
-    Serial.print("  State2:  ");
-    Serial.println(rainState);
 }
 
 

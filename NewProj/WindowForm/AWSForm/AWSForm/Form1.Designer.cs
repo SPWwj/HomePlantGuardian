@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupLCD = new System.Windows.Forms.GroupBox();
             this.textLCD = new System.Windows.Forms.TextBox();
             this.btnLCDWrite = new System.Windows.Forms.Button();
@@ -35,11 +36,11 @@
             this.comboSerial = new System.Windows.Forms.ComboBox();
             this.btnSerialCon = new System.Windows.Forms.Button();
             this.groupCover = new System.Windows.Forms.GroupBox();
-            this.btnToggleCover = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupPump = new System.Windows.Forms.GroupBox();
             this.btnPumpOff = new System.Windows.Forms.Button();
             this.btnPumpOn = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.groupLCD.SuspendLayout();
             this.groupSerial.SuspendLayout();
             this.groupCover.SuspendLayout();
@@ -116,7 +117,6 @@
             // groupCover
             // 
             this.groupCover.Controls.Add(this.checkBox1);
-            this.groupCover.Controls.Add(this.btnToggleCover);
             this.groupCover.Location = new System.Drawing.Point(282, 55);
             this.groupCover.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupCover.Name = "groupCover";
@@ -126,15 +126,16 @@
             this.groupCover.TabStop = false;
             this.groupCover.Text = "Cover Control";
             // 
-            // btnToggleCover
+            // checkBox1
             // 
-            this.btnToggleCover.Location = new System.Drawing.Point(16, 44);
-            this.btnToggleCover.Name = "btnToggleCover";
-            this.btnToggleCover.Size = new System.Drawing.Size(95, 42);
-            this.btnToggleCover.TabIndex = 0;
-            this.btnToggleCover.Text = "Open";
-            this.btnToggleCover.UseVisualStyleBackColor = true;
-            this.btnToggleCover.Click += new System.EventHandler(this.btnToggleCover_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 91);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupPump
             // 
@@ -169,17 +170,6 @@
             this.btnPumpOn.UseVisualStyleBackColor = true;
             this.btnPumpOn.Click += new System.EventHandler(this.btnPumpOn_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 91);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 24);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -212,11 +202,11 @@
         private System.Windows.Forms.ComboBox comboSerial;
         private System.Windows.Forms.Button btnSerialCon;
         private System.Windows.Forms.GroupBox groupCover;
-        private System.Windows.Forms.Button btnToggleCover;
         private System.Windows.Forms.GroupBox groupPump;
         private System.Windows.Forms.Button btnPumpOn;
         private System.Windows.Forms.Button btnPumpOff;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 

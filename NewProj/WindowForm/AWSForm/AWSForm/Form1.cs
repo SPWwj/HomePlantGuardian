@@ -35,13 +35,14 @@ namespace AWSForm
         }
 
         void listAvailableComPorts()
-        {
+        {   /*
             comboSerial.Items.Clear();
             foreach (string port in ports)
             {
                 comboSerial.Items.Add(port);
                 //Console.WriteLine(port);
-            }
+            }*/
+            comboSerial.DataSource = SerialPort.GetPortNames();
             if (ports != null && ports.Length != 0)
             {
                 comboSerial.SelectedItem = ports[0];
@@ -105,22 +106,6 @@ namespace AWSForm
 
         }
 
-        private void btnToggleCover_Click(object sender, EventArgs e)
-        {
-            if (isConnected)
-            {
-                if (btnToggleCover.Text == "Open")
-                {
-                    port.Write("#RECTON\n");
-                    btnToggleCover.Text = "Close";
-                }
-                else
-                {
-                    port.Write("#RECTOF\n");
-                    btnToggleCover.Text = "Open";
-                }
-            }
-        }
 
         private void btnLCDWrite_Click(object sender, EventArgs e)
         {
@@ -158,12 +143,16 @@ namespace AWSForm
             {
                 if (checkBox1.Checked)
                 {
-                    port.Write("#RECTON\n");
-      
+                  
+                        port.Write("#LED1ON\n");
+                        Console.WriteLine("send rect on");
+  
                 }
                 else
                 {
-                    port.Write("#RECTOF\n");
+                        port.Write("#LED1OF\n");
+                        Console.WriteLine("send rect of");
+   
                 }
             }
         }
