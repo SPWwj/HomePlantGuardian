@@ -1,45 +1,52 @@
 #include <LiquidCrystal.h>
+#include <SoftwareSerial.h>
 #include <Servo.h>
+//
+#define rxPin 0
+#define txPin 1
+SoftwareSerial esp8266(rxPin, txPin);
+
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 String commandString = "";
-Servo myservo; 
-int led1Pin = 19;
-int led2Pin = 20;
-int led3Pin = 21;
 
+Servo myservo;  // create servo object to control a servo
+
+int pumpPin = 8;
 int servoPin=9;
-boolean isConnected = false;
 
-LiquidCrystal lcd(8,9,4,5,6,7); 
+//init state
+boolean isConnected = false;
 boolean rectState = false;
+boolean rainState = false;
+boolean pumpState = false;
+boolean soilDryState = false;
+
+//Declare Pin for LCD
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// Rain and soil moisture values
+int rainValue=0, soilMoistureValue=0;
+const int SOILTHRESHOLD=1300;
+const int RAINTHRESHOLD= 800;
+
+/**************** Main Program ****************/
 
 void setup() {
-  
+  // Setup ESP8266 serial port
   Serial.begin(9600);
-  pinMode(led1Pin,OUTPUT);
-  pinMode(led2Pin,OUTPUT);
-  pinMode(led3Pin,OUTPUT);
+  esp8266.begin(9600);
     myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
-  //pinMode(pumpPin,OUTPUT);
-    myservo.write(95);  
+  pinMode(pumpPin,OUTPUT);
+    myservo.write(0);  
   initDisplay();
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN,LOW);
 }
 
 void loop() {
-    if ( rectState==true)
-    {
-        myservo.write(5);
-    }
-  else
-    { 
-   
-        myservo.write(95);
-        //delay(25);   
-     
-    }  
+operation();
 
 if(stringComplete)
 {
@@ -52,9 +59,6 @@ if(stringComplete)
   }
   if(commandString.equals("STOP"))
   {
-    turnLedOff(led1Pin);
-    turnLedOff(led2Pin);
-    turnLedOff(led3Pin);
     lcd.clear();
     lcd.print("Ready to connect");    
   }
@@ -63,16 +67,14 @@ if(stringComplete)
     String text = getTextToPrint();
     printText(text);
   }
-  else if(commandString.equals("LED1"))
+  else if(commandString.equals("RECT"))
   {
     boolean LedState = getLedState();
     if(LedState == true)
     {
-      turnLedOn(led1Pin);
       rectState=true;
     }else
     {
-      turnLedOff(led1Pin);
       rectState=false;
     }   
   }
@@ -81,10 +83,9 @@ if(stringComplete)
     boolean LedState = getLedState();
     if(LedState == true)
     {
-      turnLedOn(led2Pin);
     }else
     {
-      turnLedOff(led2Pin);
+
     }   
   }
     else if(commandString.equals("LED3"))
@@ -92,16 +93,37 @@ if(stringComplete)
     boolean LedState = getLedState();
     if(LedState == true)
     {
-      turnLedOn(led3Pin);
+
     }else
     {
-      turnLedOff(led3Pin);
     }   
   }
   
   inputString = "";
 }
 
+}
+
+void operation(){
+
+  //if (rainState ==true || rectState==true)
+  
+  if ( rectState==true)
+    {
+        myservo.write(170);
+    }
+  else
+    { 
+        myservo.write(90);
+    }  
+//  if (pumpState ==true || soilDryState==true)
+//    {
+//      turnPumpOn(pumpPin);
+//    }
+//    else
+//    {
+//      turnPumpOff(pumpPin);
+//    }  
 }
 
 void initDisplay()

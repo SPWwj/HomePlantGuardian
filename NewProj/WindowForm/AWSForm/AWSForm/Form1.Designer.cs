@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.groupLCD = new System.Windows.Forms.GroupBox();
             this.textLCD = new System.Windows.Forms.TextBox();
             this.btnLCDWrite = new System.Windows.Forms.Button();
@@ -36,11 +35,9 @@
             this.comboSerial = new System.Windows.Forms.ComboBox();
             this.btnSerialCon = new System.Windows.Forms.Button();
             this.groupCover = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnCoverToggle = new System.Windows.Forms.Button();
             this.groupPump = new System.Windows.Forms.GroupBox();
-            this.btnPumpOff = new System.Windows.Forms.Button();
-            this.btnPumpOn = new System.Windows.Forms.Button();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.btnTogglePump = new System.Windows.Forms.Button();
             this.groupLCD.SuspendLayout();
             this.groupSerial.SuspendLayout();
             this.groupCover.SuspendLayout();
@@ -49,13 +46,16 @@
             // 
             // groupLCD
             // 
+            this.groupLCD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.groupLCD.Controls.Add(this.textLCD);
             this.groupLCD.Controls.Add(this.btnLCDWrite);
-            this.groupLCD.Location = new System.Drawing.Point(98, 43);
+            this.groupLCD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.groupLCD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupLCD.Location = new System.Drawing.Point(98, 47);
             this.groupLCD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupLCD.Name = "groupLCD";
             this.groupLCD.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupLCD.Size = new System.Drawing.Size(178, 134);
+            this.groupLCD.Size = new System.Drawing.Size(178, 141);
             this.groupLCD.TabIndex = 13;
             this.groupLCD.TabStop = false;
             this.groupLCD.Text = "LCD 16x2 Control";
@@ -71,24 +71,29 @@
             // 
             // btnLCDWrite
             // 
+            this.btnLCDWrite.BackColor = System.Drawing.SystemColors.Control;
+            this.btnLCDWrite.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnLCDWrite.Location = new System.Drawing.Point(21, 88);
             this.btnLCDWrite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLCDWrite.Name = "btnLCDWrite";
-            this.btnLCDWrite.Size = new System.Drawing.Size(135, 29);
+            this.btnLCDWrite.Size = new System.Drawing.Size(135, 42);
             this.btnLCDWrite.TabIndex = 4;
             this.btnLCDWrite.Text = "Write";
-            this.btnLCDWrite.UseVisualStyleBackColor = true;
+            this.btnLCDWrite.UseVisualStyleBackColor = false;
             this.btnLCDWrite.Click += new System.EventHandler(this.btnLCDWrite_Click);
             // 
             // groupSerial
             // 
+            this.groupSerial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.groupSerial.Controls.Add(this.comboSerial);
             this.groupSerial.Controls.Add(this.btnSerialCon);
-            this.groupSerial.Location = new System.Drawing.Point(98, 226);
+            this.groupSerial.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.groupSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupSerial.Location = new System.Drawing.Point(98, 217);
             this.groupSerial.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupSerial.Name = "groupSerial";
             this.groupSerial.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupSerial.Size = new System.Drawing.Size(528, 89);
+            this.groupSerial.Size = new System.Drawing.Size(473, 130);
             this.groupSerial.TabIndex = 12;
             this.groupSerial.TabStop = false;
             this.groupSerial.Text = "Serial Connection";
@@ -116,65 +121,61 @@
             // 
             // groupCover
             // 
-            this.groupCover.Controls.Add(this.checkBox1);
-            this.groupCover.Location = new System.Drawing.Point(282, 55);
+            this.groupCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupCover.Controls.Add(this.btnCoverToggle);
+            this.groupCover.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.groupCover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupCover.Location = new System.Drawing.Point(282, 59);
             this.groupCover.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupCover.Name = "groupCover";
             this.groupCover.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupCover.Size = new System.Drawing.Size(149, 122);
+            this.groupCover.Size = new System.Drawing.Size(149, 129);
             this.groupCover.TabIndex = 11;
             this.groupCover.TabStop = false;
             this.groupCover.Text = "Cover Control";
             // 
-            // checkBox1
+            // btnCoverToggle
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 91);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 24);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.btnCoverToggle.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCoverToggle.Location = new System.Drawing.Point(26, 44);
+            this.btnCoverToggle.Name = "btnCoverToggle";
+            this.btnCoverToggle.Size = new System.Drawing.Size(92, 52);
+            this.btnCoverToggle.TabIndex = 15;
+            this.btnCoverToggle.Text = "To Open";
+            this.btnCoverToggle.UseVisualStyleBackColor = false;
+            this.btnCoverToggle.Click += new System.EventHandler(this.btnCoverToggle_Click);
             // 
             // groupPump
             // 
-            this.groupPump.Controls.Add(this.btnPumpOff);
-            this.groupPump.Controls.Add(this.btnPumpOn);
-            this.groupPump.Location = new System.Drawing.Point(437, 55);
+            this.groupPump.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupPump.Controls.Add(this.btnTogglePump);
+            this.groupPump.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.groupPump.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupPump.Location = new System.Drawing.Point(437, 59);
             this.groupPump.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupPump.Name = "groupPump";
             this.groupPump.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupPump.Size = new System.Drawing.Size(334, 122);
+            this.groupPump.Size = new System.Drawing.Size(134, 129);
             this.groupPump.TabIndex = 14;
             this.groupPump.TabStop = false;
             this.groupPump.Text = "Pump Control";
             // 
-            // btnPumpOff
+            // btnTogglePump
             // 
-            this.btnPumpOff.Location = new System.Drawing.Point(136, 44);
-            this.btnPumpOff.Name = "btnPumpOff";
-            this.btnPumpOff.Size = new System.Drawing.Size(84, 42);
-            this.btnPumpOff.TabIndex = 1;
-            this.btnPumpOff.Text = "Off";
-            this.btnPumpOff.UseVisualStyleBackColor = true;
-            this.btnPumpOff.Click += new System.EventHandler(this.btnPumpOff_Click);
-            // 
-            // btnPumpOn
-            // 
-            this.btnPumpOn.Location = new System.Drawing.Point(16, 44);
-            this.btnPumpOn.Name = "btnPumpOn";
-            this.btnPumpOn.Size = new System.Drawing.Size(92, 42);
-            this.btnPumpOn.TabIndex = 0;
-            this.btnPumpOn.Text = "On";
-            this.btnPumpOn.UseVisualStyleBackColor = true;
-            this.btnPumpOn.Click += new System.EventHandler(this.btnPumpOn_Click);
+            this.btnTogglePump.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTogglePump.Location = new System.Drawing.Point(16, 44);
+            this.btnTogglePump.Name = "btnTogglePump";
+            this.btnTogglePump.Size = new System.Drawing.Size(92, 52);
+            this.btnTogglePump.TabIndex = 0;
+            this.btnTogglePump.Text = "On";
+            this.btnTogglePump.UseVisualStyleBackColor = false;
+            this.btnTogglePump.Click += new System.EventHandler(this.btnPumpOn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1016, 462);
             this.Controls.Add(this.groupPump);
             this.Controls.Add(this.groupLCD);
@@ -187,7 +188,6 @@
             this.groupLCD.PerformLayout();
             this.groupSerial.ResumeLayout(false);
             this.groupCover.ResumeLayout(false);
-            this.groupCover.PerformLayout();
             this.groupPump.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -203,10 +203,8 @@
         private System.Windows.Forms.Button btnSerialCon;
         private System.Windows.Forms.GroupBox groupCover;
         private System.Windows.Forms.GroupBox groupPump;
-        private System.Windows.Forms.Button btnPumpOn;
-        private System.Windows.Forms.Button btnPumpOff;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Button btnTogglePump;
+        private System.Windows.Forms.Button btnCoverToggle;
     }
 }
 

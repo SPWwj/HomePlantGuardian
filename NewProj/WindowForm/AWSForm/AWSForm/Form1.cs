@@ -117,13 +117,20 @@ namespace AWSForm
 
         private void btnPumpOn_Click(object sender, EventArgs e)
         {
-            port.Write("#PUMPON\n");
+            if (btnTogglePump.Text == "On")
+            {
+                port.Write("#PUMPON\n");
+                btnTogglePump.Text = "Off";
+                btnTogglePump.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                port.Write("#PUMPOF\n");
+                btnTogglePump.Text = "On";
+                btnTogglePump.BackColor = Color.White;
+            }
         }
 
-        private void btnPumpOff_Click(object sender, EventArgs e)
-        {
-            port.Write("#PUMPOF\n");
-        }
 
         private void btnSerialCon_Click(object sender, EventArgs e)
         {
@@ -139,20 +146,24 @@ namespace AWSForm
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnCoverToggle_Click(object sender, EventArgs e)
+        {
             if (isConnected)
             {
-                if (checkBox1.Checked)
+                if (btnCoverToggle.Text=="To Open")
                 {
-                  
-                        port.Write("#RECTON\n");
-                        Console.WriteLine("send rect on");
-  
+                    port.Write("#RECTON\n");
+                    btnCoverToggle.Text = "To Close";
+                    btnCoverToggle.BackColor = Color.LightGreen;
                 }
                 else
                 {
-                        port.Write("#RECTOF\n");
-                        Console.WriteLine("send rect of");
-   
+                    port.Write("#RECTOF\n");
+                    btnCoverToggle.Text = "To Open";
+                    btnCoverToggle.BackColor = Color.White;
                 }
             }
         }

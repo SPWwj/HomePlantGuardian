@@ -39,6 +39,8 @@ String commandString = "";
 //Declare pin for moter
 int pumpPin = 8;
 int servoPin=9;
+int servoStartingPositon=85;
+int servoEndPosition=0;
 
 //init state
 boolean isConnected = false;
@@ -64,7 +66,7 @@ void setup() {
   esp8266.begin(9600);
   myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object
   pinMode(pumpPin,OUTPUT);
-  myservo.write(95);  
+  myservo.write(servoStartingPositon);  
   initDisplay();
   // Setup onboard LED for status indication
   pinMode(LED_BUILTIN, OUTPUT);
@@ -116,16 +118,6 @@ void serialEvent() {
 void readSensors() {
   rainValue = analogRead(A0);
   soilMoistureValue = analogRead(A1);
-}
-
-void turnPumpOn(int pin)
-{
-  digitalWrite(pin,HIGH);
-}
-
-void turnPumpOff(int pin)
-{
-  digitalWrite(pin,LOW);
 }
 
 void checkThreshold(){
@@ -208,7 +200,8 @@ if(stringComplete)
   }
   if(commandString.equals("STOP"))
   {
-    turnPumpOff(pumpPin);
+    pumpState =false;
+    rectState=false;
     lcd.clear();
     lcd.print("Ready to connect");    
   }
@@ -220,13 +213,29 @@ if(stringComplete)
   else if(commandString.equals("RECT"))
   {
     rectState = getState();
+    if ( rectState==true)
+    {
+        printText("Opening Cover");
+    }
+    else
+    { 
+        printText("Closing Cover");
+    }  
   }
   else if(commandString.equals("PUMP"))
   {
     pumpState = getState();
+    if (pumpState ==true || soilDryState==true)
+    {
+      printText("ON  Pump");
+    }
+    else
+    {
+      printText("OFF Pump");
+    }  
   } 
+  inputString = "";
 }
-inputString = "";
 }
 
 void operation(){
@@ -235,20 +244,19 @@ void operation(){
   
   if ( rectState==true)
     {
-        myservo.write(5);
+        myservo.write(servoEndPosition);
     }
   else
     { 
-        myservo.write(95);
+        myservo.write(servoStartingPositon);
     }  
   if (pumpState ==true || soilDryState==true)
     {
-      turnPumpOn(pumpPin);
+      digitalWrite(pumpPin,HIGH);
     }
     else
     {
-      turnPumpOff(pumpPin);
+      digitalWrite(pumpPin,LOW);
     }  
 }
-
 
