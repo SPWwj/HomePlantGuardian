@@ -55,8 +55,8 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 // Rain and soil moisture values
 int rainValue=0, soilMoistureValue=0;
-const int SOILTHRESHOLD=1300;
-const int RAINTHRESHOLD= 800;
+int soilThreshold=1300;
+int rainThreshold= 800;
 
 /**************** Main Program ****************/
 
@@ -121,7 +121,7 @@ void readSensors() {
 }
 
 void checkThreshold(){
-      if (soilMoistureValue >SOILTHRESHOLD)
+      if (soilMoistureValue >soilThreshold)
     {
       soilDryState=true;
     }
@@ -129,7 +129,7 @@ void checkThreshold(){
     {
       soilDryState=false;
     }
-    if (rainValue<RAINTHRESHOLD)
+    if (rainValue<rainThreshold)
     {
       rainState=true;
     }
@@ -197,18 +197,21 @@ if(stringComplete)
   {
     lcd.clear();
     printText("Waiting for     Instruction");
+    Serial.println("Port Connected");
   }
   if(commandString.equals("STOP"))
   {
     pumpState =false;
     rectState=false;
     lcd.clear();
-    lcd.print("Ready to connect");    
+    lcd.print("Ready to connect");  
   }
   else if(commandString.equals("TEXT"))
   {
     String text = getTextToPrint();
     printText(text);
+    Serial.print("Print Text: ");
+    Serial.println(text);
   }
   else if(commandString.equals("RECT"))
   {
@@ -216,10 +219,12 @@ if(stringComplete)
     if ( rectState==true)
     {
         printText("Opening Cover");
+        Serial.println("Cover Opened");
     }
     else
     { 
         printText("Closing Cover");
+        Serial.println("Cover Closed");
     }  
   }
   else if(commandString.equals("PUMP"))
@@ -228,21 +233,58 @@ if(stringComplete)
     if (pumpState ==true || soilDryState==true)
     {
       printText("ON  Pump");
+      Serial.println("Pump ON");
     }
     else
     {
       printText("OFF Pump");
+      Serial.println("Pump OFF");
     }  
-  } 
+  }
+  else if(commandString.equals("THCO"))
+  {
+      String textCO = getTextToPrint();
+      rainThreshold=textCO.toInt();
+      Serial.print("Rain Threshold to: ");
+      Serial.println(rainThreshold);
+  }
+  else if(commandString.equals("THPU"))
+  {
+      String textPU = getTextToPrint();
+      soilThreshold=textPU.toInt();
+      Serial.print("Soil Threshold to: ");
+      Serial.println(soilThreshold);
+  }
+  else if(commandString.equals("STAT"))
+  {
+      Serial.print("Rain Threshold: ");
+      Serial.print(rainThreshold);
+      Serial.print("   ");
+      Serial.print("Soil Threshold: ");
+      Serial.println(soilThreshold);
+      Serial.print("Soil: ");
+      Serial.print(soilDryState);
+      Serial.print("      ||   ");
+      Serial.print("Pump: ");
+      Serial.print(pumpState);
+      Serial.print("   Pump Operation: ");
+      Serial.println(pumpState||soilDryState);
+      Serial.print("Cover: ");
+      Serial.print(rectState);
+      Serial.print("   ||   ");
+      Serial.print("Rain: ");
+      Serial.print(rainState);
+      Serial.print("   Cover Operation: ");
+      Serial.println(rectState||rainState);
+      
+  }
   inputString = "";
 }
 }
 
 void operation(){
 
-  //if (rainState ==true || rectState==true)
-  
-  if ( rectState==true)
+  if (rainState ==true || rectState==true)
     {
         myservo.write(servoEndPosition);
     }

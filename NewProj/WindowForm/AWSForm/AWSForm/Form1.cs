@@ -16,7 +16,6 @@ namespace AWSForm
     {
         bool isConnected = false;
         String[] ports;
-        SerialPort port;
 
         public Form1()
         {
@@ -24,7 +23,6 @@ namespace AWSForm
             disableControls();
             getAvailableComPorts();
             listAvailableComPorts();
-
         }
 
 
@@ -61,9 +59,11 @@ namespace AWSForm
             {
                 isConnected = true;
                 string selectedPort = comboSerial.GetItemText(comboSerial.SelectedItem);
-                port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
-                port.Open();
-                port.Write("#STAR\n");
+                //port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
+                serialPort1.PortName = selectedPort;
+                serialPort1.Open();
+                //port.Open();
+                serialPort1.Write("#STAR\n");
                 btnSerialCon.Text = "Disconnect";
                 enableControls();
             }
@@ -79,8 +79,14 @@ namespace AWSForm
             isConnected = false;
             try
             {
-                port.Write("#STOP\n");
-                port.Close();
+                serialPort1.Write("#STOP\n");
+                serialPort1.Close();
+                if (!serialPort1.IsOpen)
+                {
+                    textSerialRead.AppendText("Port Disconnected");
+                    textSerialRead.AppendText(Environment.NewLine);
+                }
+ 
             }
             catch
             {
@@ -100,6 +106,8 @@ namespace AWSForm
             groupCover.Enabled = true;
             groupPump.Enabled = true;
             groupLCD.Enabled = true;
+            groupThreshold.Enabled = true;
+            btnGetStates.Enabled = true;
 
         }
 
@@ -108,15 +116,19 @@ namespace AWSForm
         {
 
             groupCover.Enabled = false;
+            groupThreshold.Enabled = false;
             groupLCD.Enabled = false;
             groupPump.Enabled = false;
             btnSerialCon.Enabled = false;
+            btnGetStates.Enabled = false;
         }
 
         private void resetDefaults()
         {
 
             textLCD.Text = "";
+            textPumpThreshold.Text = "";
+            textCoverThreshold.Text = "";
             getAvailableComPorts();
             listAvailableComPorts();
             btnTogglePump.Text = "On";
@@ -131,7 +143,7 @@ namespace AWSForm
         {
             if (isConnected)
             {
-                 port.Write("#TEXT" + textLCD.Text + "#\n");
+                 serialPort1.Write("#TEXT" + textLCD.Text + "#\n");
             }
         }
 
@@ -139,13 +151,13 @@ namespace AWSForm
         {
             if (btnTogglePump.Text == "On")
             {
-                port.Write("#PUMPON\n");
+                serialPort1.Write("#PUMPON\n");
                 btnTogglePump.Text = "Off";
                 btnTogglePump.BackColor = Color.LightGreen;
             }
             else
             {
-                port.Write("#PUMPOF\n");
+                serialPort1.Write("#PUMPOF\n");
                 btnTogglePump.Text = "On";
                 btnTogglePump.BackColor = Color.White;
             }
@@ -171,13 +183,13 @@ namespace AWSForm
             {
                 if (btnCoverToggle.Text=="To Open")
                 {
-                    port.Write("#RECTON\n");
+                    serialPort1.Write("#RECTON\n");
                     btnCoverToggle.Text = "To Close";
                     btnCoverToggle.BackColor = Color.LightGreen;
                 }
                 else
                 {
-                    port.Write("#RECTOF\n");
+                    serialPort1.Write("#RECTOF\n");
                     btnCoverToggle.Text = "To Open";
                     btnCoverToggle.BackColor = Color.White;
                 }
@@ -188,6 +200,56 @@ namespace AWSForm
         {
             getAvailableComPorts();
             listAvailableComPorts();
+        }
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                lbIndicator.BackColor = Color.Green;
+                textSerialRead.AppendText(serialPort1.ReadExisting());
+            }
+            else lbIndicator.BackColor = Color.Red;
+        }
+
+
+        private void btnClearSerialRead_Click(object sender, EventArgs e)
+        {
+            textSerialRead.Text = "";
+        }
+
+        private void btnGetStates_Click(object sender, EventArgs e)
+        {
+            serialPort1.Write("#STAT\n");
+            textSerialRead.AppendText(serialPort1.ReadExisting());
+
+        }
+
+        private void btnRainThreshold_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int coverThreshold = Convert.ToInt32(textCoverThreshold.Text);
+                serialPort1.Write("#THCO" + coverThreshold + "#\n");
+            }
+            catch
+            {
+                MessageBox.Show("Error entering the value");
+            }
+        }
+
+        private void btnSoilThreshold_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int pumpThreshold = Convert.ToInt32(textPumpThreshold.Text);
+                serialPort1.Write("#THPU" + pumpThreshold + "#\n");
+            }
+            catch
+            {
+                MessageBox.Show("Error entering the value");
+            }
         }
     }
 }
