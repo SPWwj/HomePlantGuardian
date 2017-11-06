@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  awsform:
+    image: awsform
+    build:
+      context: .\AWSForm
+      dockerfile: Dockerfile

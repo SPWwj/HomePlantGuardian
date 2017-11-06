@@ -51,6 +51,8 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.btnClearSerialRead = new System.Windows.Forms.Button();
             this.btnGetStates = new System.Windows.Forms.Button();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.textSend = new System.Windows.Forms.TextBox();
             this.groupLCD.SuspendLayout();
             this.groupSerial.SuspendLayout();
             this.groupCover.SuspendLayout();
@@ -289,12 +291,31 @@
             this.btnGetStates.UseVisualStyleBackColor = true;
             this.btnGetStates.Click += new System.EventHandler(this.btnGetStates_Click);
             // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(107, 353);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(87, 35);
+            this.btnSend.TabIndex = 18;
+            this.btnSend.Text = "button1";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // textSend
+            // 
+            this.textSend.Location = new System.Drawing.Point(200, 357);
+            this.textSend.Name = "textSend";
+            this.textSend.Size = new System.Drawing.Size(100, 26);
+            this.textSend.TabIndex = 19;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1016, 462);
+            this.Controls.Add(this.textSend);
+            this.Controls.Add(this.btnSend);
             this.Controls.Add(this.btnGetStates);
             this.Controls.Add(this.btnClearSerialRead);
             this.Controls.Add(this.textSerialRead);
@@ -342,6 +363,8 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btnClearSerialRead;
         private System.Windows.Forms.Button btnGetStates;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.TextBox textSend;
     }
 }
 

@@ -251,5 +251,13 @@ namespace AWSForm
                 MessageBox.Show("Error entering the value");
             }
         }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            string temp = textSend.Text;
+            //serialPort1.Write("#RECTON\n");
+            serialPort1.Write(temp);
+            Console.WriteLine(temp);
+        }
     }
 }
