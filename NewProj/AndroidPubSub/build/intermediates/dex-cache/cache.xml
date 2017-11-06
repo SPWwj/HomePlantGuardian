@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/WeiWenJie/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-iot/2.2.22/f0753db8c9be1b837d4922a342e506d51c6bf924/aws-android-sdk-iot-2.2.22.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="f0753db8c9be1b837d4922a342e506d51c6bf924">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/aws-android-sdk-iot-2.2.22_1f206bc592a2a335d0736dbaa891b1ce3a8adec9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="1766e32737cee9ceb6e75267c7dce9f9e732d1d9">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_251e3f2daf482942901ba0aa6a2af25ce019886e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/WeiWenJie/.gradle/caches/modules-2/files-2.1/com.amazonaws/aws-android-sdk-core/2.2.22/c6789de00db9d1f93faec881fa0c1f5960fb8a15/aws-android-sdk-core-2.2.22.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="c6789de00db9d1f93faec881fa0c1f5960fb8a15">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/aws-android-sdk-core-2.2.22_48733a30dee2f1b206a072bb2a4051b162655b74/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="0300e6c85fe4b82dfe2eadfeb4f8466e2431f3f5">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_030efb859a9efba6649b8be7e67073e9da2109a2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/WeiWenJie/.gradle/caches/modules-2/files-2.1/org.eclipse.paho/org.eclipse.paho.client.mqttv3/1.1.0/89d827ffa47c241f2627421ef1d6c7a8c207a341/org.eclipse.paho.client.mqttv3-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="89d827ffa47c241f2627421ef1d6c7a8c207a341">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/org.eclipse.paho.client.mqttv3-1.1.0_cb102bd04db6f23f3978e8a457c37ff9f2b1d069/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_d0ce76b63ce905fbab3c5d385c8e1b8692010f19/classes.dex" />
+    </item>
+
+</items>
