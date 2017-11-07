@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "C:\\Users\\wwjwe\\Desktop\\aws-sdk-android-samples-master\\AndroidPubSub\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/res/values/strings.xml",
+                    "source": "C:\\Users\\wwjwe\\Desktop\\aws-sdk-android-samples-master\\AndroidPubSub\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",

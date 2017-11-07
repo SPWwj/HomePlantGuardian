@@ -49,15 +49,15 @@ public class PubSubActivity extends Activity {
 
     // IoT endpoint
     // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com
-    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "a2nd5y3xvcd0ui.iot.ap-southeast-1.amazonaws.com";
+    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "a2nd5y3xvcd0ui.iot.ap-northeast-1.amazonaws.com";
     // Cognito pool ID. For this app, pool needs to be unauthenticated pool with
     // AWS IoT permissions.
-    private static final String COGNITO_POOL_ID = "ap-southeast-1:1b1e77ed-8fd0-41c9-aed9-316489d3aca6";
+    private static final String COGNITO_POOL_ID = "ap-northeast-1:ddf3c12e-75da-40c7-9d33-718a4732e5a4";
     // Name of the AWS IoT policy to attach to a newly created certificate
-    private static final String AWS_IOT_POLICY_NAME = "IOT";
+    private static final String AWS_IOT_POLICY_NAME = "All";
 
     // Region of AWS IoT
-    private static final Regions MY_REGION = Regions.AP_SOUTHEAST_1;
+    private static final Regions MY_REGION = Regions.AP_NORTHEAST_1;
     // Filename of KeyStore file on the filesystem
     private static final String KEYSTORE_NAME = "iot_keystore";
     // Password for the private key in the KeyStore
@@ -65,11 +65,16 @@ public class PubSubActivity extends Activity {
     // Certificate and key aliases in the KeyStore
     private static final String CERTIFICATE_ID = "default";
 
+    EditText txtSubcribe;
+    EditText txtTopic;
+    EditText txtMessage;
+
     TextView tvLastMessage;
     TextView tvClientId;
     TextView tvStatus;
 
     Button btnConnect;
+    Button btnSubscribe;
     Button btnPublish;
     Button btnDisconnect;
 
@@ -91,15 +96,14 @@ public class PubSubActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-
-
         tvLastMessage = (TextView) findViewById(R.id.tvLastMessage);
         tvClientId = (TextView) findViewById(R.id.tvClientId);
         tvStatus = (TextView) findViewById(R.id.tvStatus);
 
         btnConnect = (Button) findViewById(R.id.btnConnect);
         btnConnect.setOnClickListener(connectClick);
-        btnConnect.setEnabled(true);
+        btnConnect.setEnabled(false);
+
 
 
         btnPublish = (Button) findViewById(R.id.btnPublish);
@@ -272,7 +276,7 @@ public class PubSubActivity extends Activity {
                 tvStatus.setText("Error! " + e.getMessage());
             }
 
-            final String topic = "$aws/things/AWSThing/shadow/control";
+            final String topic = "$aws/things/GreenHouseProj/shadow/control";
 
             Log.d(LOG_TAG, "topic = " + topic);
 
@@ -305,12 +309,12 @@ public class PubSubActivity extends Activity {
         }
     };
 
-
     View.OnClickListener publishClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            final String topic = "$aws/things/GreenHouseProj/shadow/control";
             String msg ;
-            final String topic = "$aws/things/AWSThing/shadow/control";
 
             if (btnPublish.getText().toString()=="ON"){
                 msg="ON";
@@ -321,7 +325,6 @@ public class PubSubActivity extends Activity {
                 btnPublish.setText("ON");
 
             }
-            //final String msg = txtMessage.getText().toString();
 
             try {
                 mqttManager.publishString(msg, topic, AWSIotMqttQos.QOS0);
