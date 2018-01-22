@@ -44,9 +44,11 @@
              loadedData = data;
           });
           if (loadedData!=null){
-            gauge1.update(parseFloat((loadedData["ID0"][6]*100).toFixed(1)));
-            gauge2.update(parseFloat((loadedData["ID0"][5]*100).toFixed(1)));
-            gauge3.update(parseFloat((loadedData["ID0"][4]*100).toFixed(1)));
+            gauge1.update(parseFloat((loadedData["ID0"][2]).toFixed(1)));
+            gauge2.update(parseFloat((loadedData["ID0"][4]).toFixed(1)));
+            gauge3.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
+            gauge4.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
+            gauge5.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
             // gauge1.update(parseFloat((Math.random()*100).toFixed(1)));
             // gauge2.update(parseFloat((Math.random()*100).toFixed(1)));
             // gauge3.update(parseFloat((Math.random()*100).toFixed(1)));
@@ -89,8 +91,17 @@
                                             .attr("width","33%")
                                             .attr("height",200)
                                             // .attr("viewBox", "0 0 "+ reWidth/3+" 300");
+       var devicesContainer3 = d3.select("body").append("svg")
+                                            .classed("svg-container", true) //container class to make it responsive
+                                            .attr("id","Temerature")
+                                            .attr("width","33%")
+                                            .attr("height",200)
 
-
+        var devicesContainer4 = d3.select("body").append("svg")
+                                            .classed("svg-container", true) //container class to make it responsive
+                                            .attr("id","Light")
+                                            .attr("width","33%")
+                                          .attr("height",200)
 
         var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
         config1.textVertPosition = 0.2;
@@ -110,6 +121,8 @@
         var gauge1 = loadLiquidFillGauge("WaterLevel", loadedData,config1);//call loadLiquidFillGauge
         var gauge2 = loadLiquidFillGauge("SoilMoisture", loadedData,config2);//call loadLiquidFillGauge
         var gauge3 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
+        var gauge4 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
+        var gauge5 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
     </script>
     <div class="graph"></div>
     <div id="mySidenav" class="sidenav">
