@@ -8,7 +8,7 @@ var width = window.innerWidth,
 var groups = {
     rain: {
         value: 0,
-        color: 'orange',
+        color: 'pink',
         data: d3.range(limit).map(function() {
             return 0
         }),
@@ -16,7 +16,7 @@ var groups = {
     },
     soil: {
         value: 0,
-        color: 'green',
+        color: 'brown',
         data: d3.range(limit).map(function() {
             return 0
         }),
@@ -24,10 +24,27 @@ var groups = {
     },
     water: {
         value: 0,
-        color: 'grey',
+        color: '#178BCA',
         data: d3.range(limit).map(function() {
             return 0
         }),
+        class: "water"
+    },
+    light: {
+        value: 0,
+        color: '#baa7a7',
+        data: d3.range(limit).map(function() {
+            return 0
+        }),
+        class: "light"
+    },
+    temp: {
+        value: 0,
+        color: '#f9de72',
+        data: d3.range(limit).map(function() {
+            return 0
+        }),
+        class: "temp"
     }
 }
 
@@ -88,9 +105,11 @@ function tick(loadedData) {
 now = new Date()
 
     // Add new values
-    groups.water.value=parseFloat((loadedData["ID0"][6]*100).toFixed(1))
-    groups.soil.value=parseFloat((loadedData["ID0"][5]*100).toFixed(1))
-    groups.rain.value=parseFloat((loadedData["ID0"][4]*100).toFixed(1))
+    groups.water.value=parseFloat((loadedData["ID0"][1]).toFixed(1))
+    groups.soil.value=parseFloat((loadedData["ID0"][4]).toFixed(1))
+    groups.rain.value=parseFloat((loadedData["ID0"][3]).toFixed(1))
+    groups.light.value=parseFloat((loadedData["ID0"][2]).toFixed(1))
+    groups.temp.value=parseFloat((loadedData["ID0"][5]).toFixed(1))
     for (var name in groups) {
         var group = groups[name]
         group.data.push(group.value) // Real values arrive at irregular intervals

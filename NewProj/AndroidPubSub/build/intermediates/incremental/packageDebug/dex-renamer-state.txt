@@ -1,0 +1,7 @@
+#Mon Nov 06 16:46:07 SGT 2017
+base.0=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_251e3f2daf482942901ba0aa6a2af25ce019886e
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_030efb859a9efba6649b8be7e67073e9da2109a2/classes.dex
+base.1=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_030efb859a9efba6649b8be7e67073e9da2109a2
+file.0=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_251e3f2daf482942901ba0aa6a2af25ce019886e/classes.dex

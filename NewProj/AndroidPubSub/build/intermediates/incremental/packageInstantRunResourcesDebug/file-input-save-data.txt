@@ -1,0 +1,15 @@
+#Internal package file, do not edit.
+#Mon Nov 06 16:45:52 SGT 2017
+1.base=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_
+1.file=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_/res/drawable/ic_launcher.png
+2.base=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_
+3.set=ANDROID_RESOURCE
+2.set=ANDROID_RESOURCE
+2.file=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_/AndroidManifest.xml
+count=4
+1.set=ANDROID_RESOURCE
+3.base=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_
+0.set=ANDROID_RESOURCE
+0.base=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_
+3.file=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_/resources.arsc
+0.file=/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/resources-debug.ap_/res/layout/activity_main.xml

@@ -32,7 +32,7 @@
   </header>
 
   <div id="dataGauge" width="100%"><h1>Data Gauge</h1></div>
-
+  <!-- 1force 2light 3rain 4soil 5temp -->
 
   <!-- <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg> -->
   <script language="JavaScript">
@@ -44,11 +44,11 @@
              loadedData = data;
           });
           if (loadedData!=null){
-            gauge1.update(parseFloat((loadedData["ID0"][2]).toFixed(1)));
-            gauge2.update(parseFloat((loadedData["ID0"][4]).toFixed(1)));
-            gauge3.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
-            gauge4.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
-            gauge5.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));
+            gauge1.update(parseFloat((loadedData["ID0"][1]).toFixed(1)));//water-force
+            gauge2.update(parseFloat((loadedData["ID0"][4]).toFixed(1)));//soil-moisture
+            gauge3.update(parseFloat((loadedData["ID0"][3]).toFixed(1)));//rain-rain
+            gauge4.update(parseFloat((loadedData["ID0"][5]).toFixed(1)));//temp
+            gauge5.update(parseFloat((loadedData["ID0"][2]).toFixed(1)));//light
             // gauge1.update(parseFloat((Math.random()*100).toFixed(1)));
             // gauge2.update(parseFloat((Math.random()*100).toFixed(1)));
             // gauge3.update(parseFloat((Math.random()*100).toFixed(1)));
@@ -94,13 +94,13 @@
        var devicesContainer3 = d3.select("body").append("svg")
                                             .classed("svg-container", true) //container class to make it responsive
                                             .attr("id","Temerature")
-                                            .attr("width","33%")
+                                            .attr("width","50%")
                                             .attr("height",200)
 
         var devicesContainer4 = d3.select("body").append("svg")
                                             .classed("svg-container", true) //container class to make it responsive
                                             .attr("id","Light")
-                                            .attr("width","33%")
+                                            .attr("width","50%")
                                           .attr("height",200)
 
         var config1 = liquidFillGaugeDefaultSettings();//create a config for gauge1
@@ -118,11 +118,23 @@
         config3.textColor = "#FF4444";
         config3.waveTextColor = "#FFAAAA";
         config3.waveColor = "#FFDDDD";
+        var config4 = liquidFillGaugeDefaultSettings();//create a config for gauge1
+        config4.textVertPosition = 0.2;
+        config4.waveAnimateTime = 1000;
+        config4.textColor = "#ca3a17";
+        config4.waveTextColor = "#ca3a17";
+        config4.waveColor = "#f9de72";
+        var config5 = liquidFillGaugeDefaultSettings();//create a config for gauge1
+        config5.textVertPosition = 0.2;
+        config5.waveAnimateTime = 1000;
+        config5.textColor = "#FF4444";
+        config5.waveTextColor = "#FFAAAA";
+        config5.waveColor = "#baa7a7";
         var gauge1 = loadLiquidFillGauge("WaterLevel", loadedData,config1);//call loadLiquidFillGauge
         var gauge2 = loadLiquidFillGauge("SoilMoisture", loadedData,config2);//call loadLiquidFillGauge
         var gauge3 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
-        var gauge4 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
-        var gauge5 = loadLiquidFillGauge("RainSensor",loadedData,config3);//call loadLiquidFillGauge
+        var gauge4 = loadLiquidFillGauge("Temerature",loadedData,config4);//call loadLiquidFillGauge
+        var gauge5 = loadLiquidFillGauge("Light",loadedData,config5);//call loadLiquidFillGauge
     </script>
     <div class="graph"></div>
     <div id="mySidenav" class="sidenav">
@@ -131,6 +143,8 @@
         <div><input type="checkbox" name="rain" id="rain" onclick="showHide()" checked/><label for="rain">Rain sensor</label></div><br>
         <div><input type="checkbox" name="soil" id="soil" checked onclick="showHide()"><label for="soil">Soil Sensor</label></div><br>
         <div><input type="checkbox" name="water" id="water" checked onclick="showHide()"><label for="water">Water Level Sensor<label></div><br>
+          <div><input type="checkbox" name="Temperature" id="temp" checked onclick="showHide()"><label for="temp">Temerature Sensor<label></div><br>
+            <div><input type="checkbox" name="Light" id="light" checked onclick="showHide()"><label for="light">Light Sensor<label></div><br>
         <div><input type="checkbox" name="stopLineGraph" id="stopLineGraph" checked onclick="toggleTLGText()"><label for="stopLineGraph" id="toggleLineGraph">Stop Time Graph<label></div><br>
       </form>
     </div>

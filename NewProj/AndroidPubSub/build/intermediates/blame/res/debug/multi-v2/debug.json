@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\wwjwe\\Desktop\\AndroidPubSub\\build\\intermediates\\res\\merged\\debug\\values_values.arsc.flat",
+            "outputFile": "/Users/WeiWenJie/MyOwnSpace/NewProj/AndroidPubSub/build/intermediates/res/merged/debug/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\wwjwe\\Desktop\\AndroidPubSub\\res\\values\\strings.xml",
+                    "source": "/Users/WeiWenJie/MyOwnSpace/NewProj/AndroidPubSub/res/values/strings.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",
@@ -23,10 +23,10 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\wwjwe\\Desktop\\aws-sdk-android-samples-master\\AndroidPubSub\\build\\intermediates\\res\\merged\\debug\\values_values.arsc.flat",
+            "outputFile": "/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/build/intermediates/res/merged/debug/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\wwjwe\\Desktop\\aws-sdk-android-samples-master\\AndroidPubSub\\res\\values\\strings.xml",
+                    "source": "/Users/WeiWenJie/Desktop/aws-sdk-android-samples-master/AndroidPubSub/res/values/strings.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",
