@@ -95,6 +95,8 @@ function loadLiquidFillGauge(elementId, value, config) {
       case "RainSensor": caption.attr("fill","#FF7777");
                          caption.text("Rain");
         break;
+      case "Temerature": caption.text("Temperature")
+        break;
       default: caption.attr("fill","black");
                caption.text(elementId+" sensor")
     }
